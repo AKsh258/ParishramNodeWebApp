@@ -1,0 +1,144 @@
+.container{
+    background-color: rgb(187 222 251 / var(--tw-bg-opacity));
+    color: black;
+    --tw-gradient-from: #bbdefb; 
+    --tw-gradient-to: #1565c0;
+    background-image: linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-to));
+
+    }
+
+
+    .row{
+    background: #2196f380;
+    display: flex;
+    justify-content: space-around;
+    }
+    .col{
+        
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+     
+        margin-top: 40px;
+        margin-bottom: 40px;
+        font-size: 18px;
+    }
+    .heading
+    {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: white;
+    margin-left: 20px;
+    }
+    .inputdiv{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    gap: 15px;
+    row-gap: 2px;
+    }
+    .form__input{
+    width: 100%;
+ font-size: 12px;
+    height: 40px;
+    margin: 4px 0;
+    padding-left: 25px;
+ 
+    border: none;
+    outline: none;
+    font-family: "Montserrat", sans-serif;
+    background-color: #ecf0f3;
+    transition: 0.25s ease;
+    border-radius: 8px;
+    box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+  }
+
+  .form__input:focus {
+    box-shadow: inset 4px 4px 4px 
+    #d1d9e6, inset -4px -4px 4px #f9f9f9;
+  }
+
+  .imgcontact{
+    width: 500px;
+    /* height: auto; */
+  }
+  .textt{
+    text-transform: capitalize;
+    font-size: 1.5vmax;
+    font-weight: 500;
+    color: white;
+    margin-top: 20px;
+  }
+.text_h3{
+  font-size: 2vmax;
+  font-weight: 600;
+  color: white;
+}
+/* From Uiverse.io by adamgiebl */ 
+button {
+  font-family: inherit;
+  font-size: 20px;
+  background: royalblue;
+  color: white;
+  padding: 0.2em 1em;
+  padding-left: 0.9em;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+button span {
+  display: block;
+  margin-left: 0.3em;
+  transition: all 0.3s ease-in-out;
+}
+
+button svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+button:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+button:hover svg {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+button:hover span {
+  transform: translateX(5em);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+@keyframes fly-1 {
+  from {
+    transform: translateY(0.1em);
+  }
+
+  to {
+    transform: translateY(-0.1em);
+  }
+}
+
+
+  @media screen and (max-width: 768px) {
+    .imgcontact {
+      width: auto; 
+   
+    }}
+
+
+    .formInputs{
+      background-color: rgb(250, 249, 249);
+      padding: 10px;
+      border-radius: 10px;
+    }

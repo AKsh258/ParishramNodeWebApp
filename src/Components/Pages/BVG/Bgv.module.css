@@ -1,0 +1,569 @@
+/* General styles for the page */
+.pageContainer {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f9fc;
+  overflow-x: hidden;
+  padding-top: 0;
+  color: #333;
+  
+}
+.pageContainer {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;  
+}
+.heading {
+  position: absolute;
+  top: 10px; 
+  left: 20px; 
+  font-size: 2rem; 
+  color: white; 
+  font-weight: bold;
+}
+
+
+/* Hero Section */
+.heroSection {
+  /* background: linear-gradient(135deg, #0066cc, #00aaff); */
+  background-image: url('/media/bgv0.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
+  padding: 120px 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: brightness(70%);
+  text-align: center;
+  transition: transform 0.5s ease-out;
+
+
+}
+.heroSection:hover {
+  transform: scale(1.1); 
+}
+.heading {
+  position: absolute;
+  top: 10px; 
+  left: 30px; 
+  font-size: 2rem; 
+  color: white; 
+  font-weight: bold;
+  transition: transform 0.3s ease-out;
+  z-index: 20;
+}
+.heroSection:hover .heading{
+  left: 5vw; 
+  top: 5vh;
+}
+.textContainer{
+width: 90vw;
+height: 80vh;
+color: white;
+z-index: 10;
+display: flex;
+justify-content: center;
+background-color: rgba(0, 0, 0, 0.1);
+gap: 20px;
+align-items: center;
+flex-direction: column;
+
+}
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: white;
+  z-index: 10;
+  letter-spacing: 1px;
+}
+
+.heroDescription {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Section Styles */
+.details, .largeSection, .securitySection, .testimonialsSection, .faqSection, .finalSection {
+  padding: 40px 0;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  
+}
+.details{
+  background: #0693e3;
+  padding: 80px 0;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  
+}
+
+/* Section visible when in view */
+.details.show, .largeSection.show, .securitySection.show, .testimonialsSection.show, .faqSection.show, .finalSection.show {
+  opacity: 1;
+  transform: translateY(0);
+
+}
+
+/* Card Styles */
+.card {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  margin-bottom: 30px;
+  border-radius: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section Title */
+.sectionTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Section Description */
+.sectionDescription {
+  font-size: 1.2rem;
+  color: #777;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+/* FAQ Section */
+.faqList {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.faqList li {
+  font-size: 1.2rem;
+  margin: 20px 0;
+}
+
+/* Button hover effect */
+.btn:hover {
+  background-color: #0693e3;
+  transition: all 0.3s ease;
+}
+.card_h1{
+  color: rgb(183, 183, 7);
+
+
+}
+.title_card{
+  font-size: 2.5rem;
+  font-weight: 500;
+/* margin: 14px 0; */
+margin-top: 20px;
+
+}
+.title_card1{
+  font-size: 1rem;
+  font-weight: 400;
+gap: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+
+}
+/* From Uiverse.io by ke1221 */ 
+.button_bgv {
+  color: #090909;
+  padding: 0.5rem 1.4rem;
+  font-size: 16px;
+  border-radius: 0.5em;
+  background: #e8e8e8;
+  cursor: pointer;
+  border: 1px solid #e8e8e8;
+  transition: all 0.3s;
+  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+  margin: 15px 0;
+
+
+}
+
+.button_bgv:active {
+  color: #666;
+  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+}
+.cardImage {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  /* transition: transform 0.3s ease, filter 0.3s ease;  */
+  transition: transform 0.5s ease-out;
+
+}
+
+.cardImage:hover {
+  transform: scale(1.05);
+  /* filter: brightness(1.2);  */
+  
+}
+/* Ensures that the section is centered */
+.largeSection {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}
+
+.cardsContainer_1 {
+  display: flex;
+  justify-content: center; 
+  flex-wrap: wrap; 
+  gap: 20px;
+}
+.cardbd{
+  margin: 30px;
+}
+.card_1 {
+  flex: 1 1 300px;
+  /* max-width: 400px;  */
+  /* margin: 10px; */
+  border-radius: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; 
+}
+.card_2 {
+  flex: 1 1 200px;
+  /* max-width: 300px;  */
+ background-color:#0693e3;
+ color: white;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; 
+}
+.card_2:hover {
+  transform: scale(1.05);  
+}
+
+
+
+.card_7 {
+  flex: 1 1 200px;
+
+background-color: #E3F8F6;
+border: none;
+ 
+}
+
+.card_3 {
+  flex: 1 1 200px;
+  max-width: 300px; 
+
+ color: black;
+  border-radius: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; 
+}
+.cardImageContainer_1 {
+  text-align: center; 
+
+  margin:  10px;
+}
+
+.cardImage_1 {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+  background-color: #090909;  
+  border-radius: 20px;
+}
+
+.title_card {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.readMoreLink {
+  display: inline-flex;
+  align-items: center;
+  color: #007bff;
+  text-decoration: none;
+}
+
+.readMoreIcon {
+  margin-left: 8px;
+}
+
+.apiDocumentation{
+color: blue;
+padding: 10px 40px 10px 40px;
+
+border-radius: 20px;
+border: 1px solid blue;
+
+}
+
+
+.colImg_Change{
+  border-radius: 20px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; 
+}
+.api {
+  display: flex;
+  /* flex-direction: column; */
+
+  gap: 20px;
+  margin: 20px;
+}
+
+.button1 {
+  padding: 5px 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin-top: 10px;
+}
+
+.button1:hover {
+  background-color: #0056b3;
+}
+
+.active {
+  background-color: #00b34e; 
+  font-weight: bold;
+}
+
+
+.imgChange {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  margin-top: 20px;
+  width: 100%; 
+  height: 30vh; 
+  overflow-y: auto; 
+  border: 1px solid #ccc; 
+  border-radius: 20px;
+}
+
+.selectedImage {
+  border-radius: 20px;
+ width: 100%; 
+  max-height: auto; 
+  object-fit: contain; 
+  margin-top: 10px;
+}
+/* For the icon */
+.icons {
+  font-size: 3.5rem;
+  color: #15ff00; 
+  margin-right: 10px; 
+}
+.icons3 {
+  font-size: 3.5rem;
+  color: white; 
+  margin-right: 10px; 
+}
+.icons_1 {
+  font-size: 3.5rem;
+  color: blue; 
+  margin-right: 10px; 
+}
+/* For the title */
+.title_card {
+  font-size: 18px; 
+  font-weight: bold;
+  color: #333;
+}
+.card_body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+ 
+}
+.col3{
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
+  gap: 20px;
+}
+.col_Back {
+  /* border-radius: 20px; */
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; 
+  background-color:#E3F8F6;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 400px;
+  transition: all 0.3s ease;
+
+}
+.col_Back:hover {
+  transform: scale(1.05);  
+}
+/* css for question */
+.questionDiv {
+  margin-left: 80px;
+  margin-right: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  
+  
+  .showdiv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  
+  }
+  
+  .showdiv h3 {
+    margin: 0;
+  }
+  
+  .plusButton {
+    cursor: pointer;
+    font-size: 40px;
+    color: black;
+  }
+  
+  hr {
+    margin: 10px 0;
+    border: 1px solid black;
+  }
+  
+  .answer {
+    display: none;
+    color: black;
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out; 
+  }
+  
+  
+  .showAnswer {
+    display: block;
+    opacity: 1;
+  }
+  
+
+
+  /* jhbbhj */
+  
+.serviceButton {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgb(208, 192, 224); 
+  background-color: transparent;
+  /* border: 2px solid #007bff;  */
+  border-radius: 5px;
+  text-decoration: none;
+  /* position: relative; */
+  overflow: hidden; 
+  transition: color 0.5s ease-in-out;
+  margin-bottom: 20px;
+}
+
+
+.serviceButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #749abb;
+  transition: left 0.5s ease-in-out; 
+  border-radius: 5px;
+  z-index: -1;
+}
+
+
+.serviceButton:hover::before {
+  left: 0; 
+}
+
+
+.serviceButton:hover {
+  color: #fff; 
+}
+
+
+
+
+@keyframes fadeIn {
+  to {
+      opacity: 1;
+      visibility: visible;
+  }
+}
+
+.textChange {
+  height: 35vh;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: rgba(0, 0, 0, 0.02); 
+  /* color: white; */
+  margin-bottom: 20px;
+  border-radius: 10PX;
+}
+.apiRow{
+  gap: 10px;
+}
+@media screen and (max-width: 768px) {
+ .apiDocumentation{
+  padding: 0;
+ }
+}
+/* Button.module.css */
+
+.buttonContainer {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.btnBgv {
+  background-color: #0693e3;
+  color: white;
+  border: none;
+  padding: 5px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btnBgv:hover {
+  background-color: blue;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .buttonContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btnBgv {
+    margin-bottom: 10px; /* Optional spacing between vertically stacked buttons */
+  }
+}

@@ -1,0 +1,195 @@
+.container {
+  background-color: rgb(187 222 251 / var(--tw-bg-opacity));
+  color: black;
+}
+
+.row {
+  background: #2196f380;
+  display: flex;
+  /* justify-content: space-around; */
+}
+
+.col {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 18px;
+}
+.col1 {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  margin: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 30px;
+  gap: 10px;
+}
+.heading{
+  
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: white;
+    margin-left: 20px;
+    
+}
+
+.form__input {
+  width: 100%;
+  font-size: 12px;
+  height: 40px;
+  margin: 4px 0;
+  padding-left: 25px;
+  border: none;
+  outline: none;
+  font-family: "Montserrat", sans-serif;
+  background-color: #ecf0f3;
+  transition: 0.25s ease;
+  border-radius: 8px;
+  box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+}
+
+.form__input:focus {
+  box-shadow: inset 4px 4px 4px #d1d9e6, inset -4px -4px 4px #f9f9f9;
+}
+
+.socialIcon {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-size: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.socialIcon:hover {
+  transform: scale(1.1); 
+  color: #0681da;
+  box-shadow: 0 4px 15px rgba(6, 129, 218, 0.6);
+}
+
+
+.socialIcon svg {
+  transition: transform 0.3s ease; 
+}
+
+.socialIcon svg:hover {
+  transform: rotate(20deg); 
+}
+
+.socialIcon a {
+  text-decoration: none;
+  color: inherit; 
+  transition: color 0.3s ease;
+}
+
+
+.socialIcon:hover svg {
+  filter: drop-shadow(0 0 8px rgba(6, 129, 218, 0.8)); 
+}
+
+
+.FaTelegramPlane {
+  font-size: 40px;
+  color: #333;
+  padding: 5px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-left: 20px;
+  border-radius: 50%;
+}
+
+.FaTelegramPlane:hover {
+  color: #00aaff;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+  .col {
+    font-size: 16px;
+  }
+
+  .form__input {
+    font-size: 14px;
+  }
+
+  .FaTelegramPlane {
+    font-size: 35px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .col {
+    font-size: 14px;
+    margin: 15px;
+  }
+
+  .form__input {
+    font-size: 13px;
+    height: 35px;
+  }
+
+  .FaTelegramPlane {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .col {
+    font-size: 12px;
+    margin: 10px;
+  }
+
+  .form__input {
+    font-size: 12px;
+    height: 30px;
+  }
+
+  .FaTelegramPlane {
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .col {
+    font-size: 10px;
+    margin: 5px;
+  }
+
+  .form__input {
+    font-size: 10px;
+    height: 28px;
+  }
+
+  .FaTelegramPlane {
+    font-size: 20px;
+  }
+}
+.logoImage{
+  width: 300px;
+}
+
+.linkDec{
+  text-decoration: none;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+
+.adressdi{
+  display: flex;
+  flex-direction: column;
+  gap: 90x;
+  margin-left: 50px;
+}
+
+@media screen and (max-width: 768px) {
+  .adressdi {
+    margin-left: 0; 
+
+  }
+}
