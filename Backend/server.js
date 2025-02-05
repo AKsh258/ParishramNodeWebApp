@@ -20,6 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+console.log(" this is server file ")
+
 //using rout
 // app.use('/auth',authRout);
 // app.use("/mrf",mrfRout);
