@@ -1,5 +1,4 @@
 const contectUs=require("../models/contectUs.model")
-contectUs.sync({ force: false }) ;
 
 const getAll = async () => {
     try {

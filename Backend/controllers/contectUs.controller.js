@@ -18,16 +18,16 @@ const save = async (req, res, next) => {
     try {
         const contectData = req.body;
         // Simple Validation (Ensure required fields are present)
-        if (!contectData.name || !contectData.email || !contectData.phoneNumber) {
+        if (!contectData.name || !contectData.email || !contectData.phone_number) {
             return next(new CustomError(400, " Missing required name, email and phone are compulsory "));
         }
 
         const savedContect = await contectUsRepository.save(contectData);
-        res.json({
+        res.status(201).json({ 
             success: true,
-            message: "Contacts Inserted  successfully!!",
-            data: savedContect,
-          });
+            message: "Your Detail Submitted Succesfully We Will Connect You Soon ",
+            data: "thank you to connecting with us "+savedContect.name
+        });
     } catch (error) {
         next(new CustomError(500, "Failed to save contact data"));
     }

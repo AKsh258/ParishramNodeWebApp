@@ -3,9 +3,9 @@ const router=express.Router();
 const barnches =require("../controllers/branchMaster.controller");
 const errorMiddleware= require("../middleware/error.middleware");
 
-console.log("in company master routs")
 
 router.get("/", barnches.findAllBranches);
+
 
 router.use(errorMiddleware);
 

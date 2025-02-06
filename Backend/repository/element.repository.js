@@ -1,6 +1,6 @@
 const userNameMaster = require("../models/userNameMaster.js");
 const CustomError = require("../utils/errorHandler.util.js");
-userNameMaster.sync({ force: false });
+ 
 
 const login = async (email, password) => {
     try {

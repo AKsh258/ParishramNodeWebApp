@@ -2,15 +2,12 @@ const CustomError = require("../utils/errorHandler.util.js");
 const { login } = require('../repository/element.repository');
 
 const loginAdministrator = async (req, res, next) => {
-    const { email, password } = req.body;
-    
+    const { email, password } = req.body; 
     try {
-        const user = await login(email, password);
-        
+        const user = await login(email, password); 
         if (!user) {
             return next(new CustomError(401, "Invalid email or password"));
         }
-
         const userData = {
             EMPCode: user.EmployeeCode,
             email: user.email,
@@ -29,5 +26,7 @@ const loginAdministrator = async (req, res, next) => {
         next(new CustomError(500, error.message || "An error occurred during login. Please try again later."));
     }
 };
+
+
 
 module.exports = { loginAdministrator };

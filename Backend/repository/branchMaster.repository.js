@@ -1,5 +1,4 @@
 const branchMaster=require("../models/branchMaster.model")
-branchMaster.sync({ force: false }) ;
 
 const findAll = async (companyCode) => {
     try {

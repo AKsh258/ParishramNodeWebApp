@@ -2,7 +2,7 @@ const express=require("express")
 const { findAll } = require("../repository/branchMaster.repository")
 
 
-const findAllBranches = async (req, res) => {
+const findAllBranches = async (req, res, next) => {
     const companyCode=req.body.CompanyCode;
     try {
         const branches = await findAll(companyCode);

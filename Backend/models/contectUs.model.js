@@ -6,7 +6,7 @@ const ContactUs = commonSecuelize.define('ContactUs', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    phoneNumber: {
+    phone_number: {
         type: DataTypes.STRING,
         allowNull: false,
     },
@@ -14,11 +14,11 @@ const ContactUs = commonSecuelize.define('ContactUs', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    companyName: {
+    company_name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    companySize: {
+    company_size: {
         type: DataTypes.STRING,
         allowNull: false,
     },
