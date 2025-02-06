@@ -21,11 +21,9 @@
   width: 250px;
 
 color: white;
-
-box-shadow: 0 4px 15px rgba(0, 0, 0); 
-  /* background-color: #2c3e50; */
-  /* background-color: #2c3e50; */
-  background-color: #1C4E80;
+background-color: #253f4b;
+box-shadow: 0 4px 15px rgba(0, 0, 0);
+ 
   transition: all 0.3s ease;
   position: fixed;
   height: 100vh;
@@ -51,8 +49,8 @@ box-shadow: 0 4px 15px rgba(0, 0, 0);
   list-style: none;
   padding-left: 0;
   color: white;
-  background-color: #1C4E80;
-  /* box-shadow: 0 4px 15px rgba(0, 0, 0);  */
+  background-color: #365563;
+  box-shadow: 0 4px 15px black; 
   overflow-y: auto;
 }
 /* .nav ul:hover{
@@ -69,7 +67,7 @@ box-shadow: 0 4px 15px rgba(0, 0, 0);
   display: block;
 
 width: 100%;
-  box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+box-shadow: 0 4px 15px #253f4b; 
   position: relative;
   color:white;
 }
@@ -190,8 +188,8 @@ width: 100%;
   /* border-radius: 4px;
   box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9; */
  
-  /* background-color: #2c3e50; */
-  background-color: #1C4E80;
+  background-color: #253f4b;
+  box-shadow: 0 4px 15px rgba(0, 0, 0);
 z-index: 1;
   width: -webkit-fill-available;
 
@@ -311,10 +309,10 @@ position: fixed;
 }
 
 .mainArea {
-  margin-top: 20px;
+  margin-top: 17px;
   position: relative;
   top: 31px;
-  background-color: #202020;
+  background-color: #253f4b;
 }
 
 .mainArea h1 {
@@ -337,8 +335,8 @@ font-weight: 600;
   cursor: pointer;
   font-size: 13px;
   font-weight: 600;
-  color: black;
-  box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+
+  box-shadow: 0 4px 15px #253f4b; 
   text-decoration: none ;
 }
 

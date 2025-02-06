@@ -7,6 +7,7 @@ function initializeSequelize(db,dbname){
         port: process.env.SQL_PORT || 1433,
         dialect: process.env.DIALECT || 'mssql',
         dialectOptions:{ options:{ encrypt: false }, },
+        logging: false
     });
     sequelize.authenticate()
     .then(()=>{ console.log(`Connecting to DB (${ dbname }) succesfull !!`) })
@@ -14,11 +15,8 @@ function initializeSequelize(db,dbname){
 
     return sequelize;
 }
-const parishramSequelize = initializeSequelize(process.env.DB1, 'Parishram Resources');
-const cityforceSequelize= initializeSequelize(process.env.DB2,'Cityforce');
-const mrfSequelize= initializeSequelize(process.env.DB3, 'MRF');
 const commonSecuelize= initializeSequelize(process.env.DB4, 'commondatabase');
 const element = initializeSequelize(process.env.DB5, 'element parishram');
 
 
-module.exports = { parishramSequelize, mrfSequelize, cityforceSequelize,commonSecuelize,element};
+module.exports = { commonSecuelize, element };

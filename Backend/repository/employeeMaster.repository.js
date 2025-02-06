@@ -1,9 +1,8 @@
 const employeeMaster = require("../models/employeeMaster.model.js");
 const CustomError = require("../utils/errorHandler.util.js");
-employeeMaster.sync({ force: false });
 
 const findAll = async (page,pageSize) => {
-    console.log("in employee master repo")
+
     const offset = (page - 1) * pageSize;
     try {
         const { count, rows }= await employeeMaster.findAndCountAll({
@@ -28,4 +27,20 @@ const findAll = async (page,pageSize) => {
 //     order: [['id', 'ASC']]
 //   });
 
-module.exports = { findAll };
+const findOne = async (empid) => {
+    try {
+        return employee= await employeeMaster.findOne({ where: { EmpID: empid } });
+    } catch (error) {
+        throw new Error('Error in fetching employee by id: ' + error.message);
+    }
+};
+const getAllByBranch = async (branchCode) => {
+    try {
+        return employee= await employeeMaster.findAll({ where: { branchCode: branchCode } });
+    } catch (error) {
+        throw new Error('Error in fetching employee by branch: ' + error.message);
+    }
+};
+
+
+module.exports = { findAll, findOne, getAllByBranch };

@@ -1,37 +1,7 @@
-// const CustomError = require("../utils/errorHandler.util.js");
-// const { findAll } = require('../repository/employeeMaster.repository');
-
-// const findAllemployees = async (req, res, next) => {
-//     console.log("in employee master controller")
-//     try {
-//         const employees = await findAll();
-
-//         if (!employees) {
-//             return next(new CustomError(401, "there is No data to show"));
-//         }
-//         res.status(200).json({
-//             success: true,
-//             message: "all records found ",
-//             data: employees
-//         });
-
-//     } catch (error) {
-//         console.error("faching Error:", error); 
-//         next(new CustomError(500, error.message || "An error occurred during fatching data. Please try again later."));
-//     }
-// };
-
-// module.exports = { findAllemployees };
-
-
-
-
-
 const CustomError = require("../utils/errorHandler.util.js");
-const { findAll } = require('../repository/employeeMaster.repository');
+const { findAll, findOne, getAllByBranch } = require('../repository/employeeMaster.repository');
 
 const findAllemployees = async (req, res, next) => {
-    console.log("in employee master controller")
     try {
         const page = parseInt(req.query.page) || 1;
         const pageSize = 20;
@@ -56,4 +26,48 @@ const findAllemployees = async (req, res, next) => {
     }
 };
 
-module.exports = { findAllemployees };
+const getEmployeeById = async (req, res, next) => {
+    try {
+        const empid = req.params.id;
+        const employee = await findOne(empid);
+        if (employee) {
+            res.status(200).json({
+                success: true,
+                message: " employee found succesfull successfully ",
+                data: employee
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " employee not found ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+const getAllEmployeeFromBranch = async (req, res, next) => {
+    try {
+        const branchCode = req.params.branchCode;
+        const employees = await getAllByBranch(branchCode);
+        if (employees) {
+            res.status(200).json({
+                success: true,
+                message: " All employee found successfully of "+branchCode+ " branch",
+                data: employees
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " employee not found by branch",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+module.exports = { findAllemployees, getEmployeeById , getAllEmployeeFromBranch };

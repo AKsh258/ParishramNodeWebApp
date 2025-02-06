@@ -1,5 +1,4 @@
 const company=require("../models/companyMaster.model")
-company.sync({ force: false }) ;
 
 const findAll = async () => {
     try {
