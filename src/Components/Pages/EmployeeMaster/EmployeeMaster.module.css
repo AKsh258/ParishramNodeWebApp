@@ -1,9 +1,11 @@
 .container{
-    background-color: #202020;
+    background-color: #253f4b;
+    box-shadow: 0 4px 15px rgba(0, 0, 0);
     /* height: 100vh; */
     border-radius: 20px;
     z-index: 1;
     color: white;
+    padding: 10px;
 }
 .row{
     /* display: flex;

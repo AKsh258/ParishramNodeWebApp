@@ -93,7 +93,7 @@ const Header2 = () => {
         <Header
    style={{zIndex:"2000"}}
           items={navItems}
-          backgroundColor="#4E6EE2"
+          backgroundColor="#253f4b"
           className="my_custom_header"
         />
         {showScrollButton && (

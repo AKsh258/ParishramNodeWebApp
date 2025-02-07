@@ -1,14 +1,21 @@
 import { Col, Container, ProgressBar, Row } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./EmployeeMaster.module.css";
 import { FaBuildingUser } from "react-icons/fa6";
 import { HiMiniCursorArrowRipple } from "react-icons/hi2";
 import { GiTreeBranch } from "react-icons/gi";
+import { useDispatch, useSelector } from "react-redux";
+import { BranchName, companyName_fetched } from "../../../Redux/Features/Counter/EmployeeMaster/EmployeeMaster_Slice";
 const EmployeeMaster = () => {
+
   const [showRow1, setShowRow1] = useState(false);
   const [showRow2, setShowRow2] = useState(false);
   const [showEmployeeNameDiv, setShowEmployeeNameDiv] = useState(false);
+  const [selectedCompanyCode, setSelectedCompanyCode] = useState('');
 
+const dispatch=useDispatch()
+const {employee} = useSelector(state => state.employee);
+// console.log("http://localhost:4000/company---------------------------------",employee)
   const toggleRow1 = () => {
     setShowRow1(!showRow1); 
     setShowRow2(false); 
@@ -21,23 +28,48 @@ const EmployeeMaster = () => {
 const toggleEmployeeNameDiv=()=>{
   setShowEmployeeNameDiv(!showEmployeeNameDiv);
 }
+useEffect(() => {
+dispatch(companyName_fetched())
+
+}, [dispatch])
+
+  const handleCompanyChange = (event) => {
+    const companyCode = event.target.value; 
+    setSelectedCompanyCode(companyCode); 
+
+  
+    if (companyCode) {
+      dispatch(BranchName({ CompanyCode: companyCode }));
+    }
+  };
   return (
     <>
     <div>
+   
     <form  className={styles.formconatiner1}>
 
           <Row className={`${styles.row1}`}>
-            <Col className={`${styles.col}`}>
-              <label className={styles.labelinp} htmlFor="">
-              company Name
-              </label>
-              <select className={`${styles.selectin} `} id="applicationType">
-      <option  value="" className={styles.optionss}>company Name</option>
-      <option value="email">Direct</option>
-      <option value="web">Application Form</option>
-    
-    </select>
-            </Col>
+          <Col className={`${styles.col}`}>
+  <label className={styles.labelinp} htmlFor="applicationType">
+    Company Name
+  </label>
+  <select className={`${styles.selectin}`} id="applicationType"    value={selectedCompanyCode}   onChange={handleCompanyChange}>
+  
+    <option value="" className={styles.optionss}>Company Name</option>
+
+   
+    {employee && employee.length > 0 ? (
+      employee.map((emp) => (
+        <option key={emp.id} value={emp.Code} className={styles.optionss}>
+          {emp.Name}
+        </option>
+      ))
+    ) : (
+      <option value="" className={styles.optionss}>No companies available</option>
+    )}
+  </select>
+</Col>
+
             <Col className={`${styles.col}`}>
               <label htmlFor="" className={styles.labelinp}>
               Select Branch
