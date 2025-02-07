@@ -7,7 +7,11 @@ router.get("/", em.findAllemployees );
 
 router.get("/:id", em.getEmployeeById);
 
-router.get("/branch/:branchCode", em.getAllEmployeeFromBranch)
+router.get("/branch/:branchCode", em.getAllEmployeeFromBranch);
+
+router.post("/", em.saveEmployee);
+
+router.post("/register",em.saveNewEmployee)
 
 
 router.use(errorMiddleware);
