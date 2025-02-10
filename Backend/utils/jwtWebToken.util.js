@@ -1,21 +1,19 @@
-//Creating a token Savin in Cookies
+// import jwt from "jsonwebtoken";
+const jwt = require("jsonwebtoken");
 
-const sendToken = (user, statusCode, res) => {
-    const token = user.getJWTToken();
-  
-    // Option for cookie
-    const options = {
-      expires: new Date(
-        Date.now() + process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-      ),
-      httpOnly: true
-    };
-    res.cookie("token", token, options);
-    res.status(statusCode).cookie("token", token, options).json({
-      success: true,
-      user,
-      token
-    });
-  };
-  module.exports = sendToken;
-  
+const createJWTToken = (adminUser) => {
+
+  const secretkey = process.env.JWT_SECRETKEY;
+
+  try {
+    // TODL: check expires in 
+    const token = jwt.sign({ administrator: adminUser }, secretkey, { expiresIn: '1h' })
+
+    return token
+  } catch (error) {
+    console.log({ error });
+    return false;
+  }
+};
+
+module.exports = { createJWTToken };
