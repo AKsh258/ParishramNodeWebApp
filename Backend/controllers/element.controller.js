@@ -1,5 +1,6 @@
 const CustomError = require("../utils/errorHandler.util.js");
 const { login } = require('../repository/element.repository');
+const { createJWTToken } = require("../utils/jwtWebToken.util.js");
 
 const loginAdministrator = async (req, res, next) => {
     const { email, password } = req.body;
@@ -8,12 +9,16 @@ const loginAdministrator = async (req, res, next) => {
         if (!user) {
             return next(new CustomError(401, "Invalid email or password"));
         }
+
+        // if user is login success, Create JWT token
+        const token = await createJWTToken();
+
         const userData = {
             EMPCode: user.EmployeeCode,
             email: user.email,
             name: user.UserName,
             role: user.role,
-            token: "Demo tocken to test response"
+            token: token
         };
 
         res.status(200).json({
