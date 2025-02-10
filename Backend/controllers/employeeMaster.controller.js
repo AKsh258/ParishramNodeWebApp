@@ -4,6 +4,14 @@ const moment = require("moment");
 
 
 const findAllemployees = async (req, res, next) => {
+    console.log("In ControllerF");
+
+    console.log({ c: req.user.EMPCode });
+    console.log({ e: req.user.email });
+    console.log({ r: req.user.role });
+    console.log({ n: req.user.name });
+
+
     try {
         const page = parseInt(req.query.page) || 1;
         const pageSize = 20;

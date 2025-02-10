@@ -1,19 +1,22 @@
 const express=require('express');
 const router=express.Router();
 const em =require("../controllers/employeeMaster.controller");
-const errorMiddleware= require("../middleware/error.middleware");
+const authenticateToken = require('../middleware/auth.Middleware');
 
-router.get("/", em.findAllemployees );
+//rout to get all employee with pagination sets of 20   http://localhost:4000/employee/getAll
+router.get("/getAll", authenticateToken, em.findAllemployees );
 
-router.get("/:id", em.getEmployeeById);
+//rout to get employee by id    http://localhost:4000/employee/get/EMP1012
+router.get("/get/:id", authenticateToken, em.getEmployeeById);
 
-router.get("/branch/:branchCode", em.getAllEmployeeFromBranch);
+//rout to get employee of a sapret branch   http://localhost:4000/employee/branch/BR00002
+router.get("/branch/:branchCode", authenticateToken, em.getAllEmployeeFromBranch);
 
-router.post("/", em.saveEmployee);
+//rout to update employee       http://localhost:4000/employee/update
+router.post("/Update", authenticateToken, em.saveEmployee);
 
-router.post("/register",em.saveNewEmployee)
+//rout to register New Employee     http://localhost:4000/employee/register
+router.post("/register", authenticateToken, em.saveNewEmployee)
 
-
-router.use(errorMiddleware);
 
 module.exports=router;
