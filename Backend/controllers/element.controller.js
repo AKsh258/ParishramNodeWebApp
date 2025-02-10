@@ -11,7 +11,12 @@ const loginAdministrator = async (req, res, next) => {
         }
 
         // if user is login success, Create JWT token
-        const token = await createJWTToken();
+        const token = await createJWTToken({
+            EMPCode: user.EmployeeCode,
+            email: user.email,
+            name: user.UserName,
+            role: user.role
+        });
 
         const userData = {
             EMPCode: user.EmployeeCode,
