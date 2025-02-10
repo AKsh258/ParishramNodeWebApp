@@ -9,7 +9,6 @@ const loginAdministrator = async (req, res, next) => {
         if (!user) {
             return next(new CustomError(401, "Invalid email or password"));
         }
-
         // if user is login success, Create JWT token
         const token = await createJWTToken({
             EMPCode: user.EmployeeCode,
@@ -19,7 +18,7 @@ const loginAdministrator = async (req, res, next) => {
         });
 
         if (!token) {
-            return next(new CustomError(401, "Unable to logic."));
+            return next(new CustomError(401, "Unable in login token not created."));
         }
 
         const userData = {
@@ -41,7 +40,5 @@ const loginAdministrator = async (req, res, next) => {
         next(new CustomError(500, error.message || "An error occurred during login. Please try again later."));
     }
 };
-
-
 
 module.exports = { loginAdministrator };
