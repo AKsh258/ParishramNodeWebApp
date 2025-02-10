@@ -18,6 +18,10 @@ const loginAdministrator = async (req, res, next) => {
             role: user.role
         });
 
+        if (!token) {
+            return next(new CustomError(401, "Unable to logic."));
+        }
+
         const userData = {
             EMPCode: user.EmployeeCode,
             email: user.email,
