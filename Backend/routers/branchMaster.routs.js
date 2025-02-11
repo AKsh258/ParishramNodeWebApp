@@ -4,7 +4,7 @@ const barnches =require("../controllers/branchMaster.controller");
 const errorMiddleware= require("../middleware/error.middleware");
 
 
-router.get("/", barnches.findAllBranches);
+router.post("/", barnches.findAllBranches);
 
 
 router.use(errorMiddleware);
