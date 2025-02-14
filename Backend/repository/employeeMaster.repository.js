@@ -10,8 +10,14 @@ const findAll = async (page,pageSize) => {
             limit: pageSize,
             offset: offset,
             order: [['EmpId1', 'ASC']]
+
           });
-          return {count,rows};
+            // Count employees who have left
+        const leftCount = await employeeMaster.count({
+            where: { hasLeft: true }
+        });
+
+          return {count,rows,leftCount};
     } catch (error) {
         console.error("Database Error :", error);
         throw new CustomError(500, "Database error occurred during getting all data from employee master.");

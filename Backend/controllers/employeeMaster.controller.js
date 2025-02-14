@@ -6,10 +6,10 @@ const moment = require("moment");
 const findAllemployees = async (req, res, next) => {
     console.log("In ControllerF");
 
-    console.log({ c: req.user.EMPCode });
-    console.log({ e: req.user.email });
-    console.log({ r: req.user.role });
-    console.log({ n: req.user.name });
+    console.log({ employeeCode: req.user.EMPCode });
+    console.log({ Email: req.user.email });
+    console.log({ Role: req.user.role });
+    console.log({ Name: req.user.name });
 
 
     try {
@@ -18,7 +18,7 @@ const findAllemployees = async (req, res, next) => {
         if (page < 1 || pageSize < 1) {
             return res.status(400).json({ error: 'Invalid pagination parameters' });
         }
-        const { count, rows } = await findAll(page, pageSize);
+        const { count, rows, leftCount } = await findAll(page, pageSize);
 
         res.json({
             data: rows,
@@ -26,7 +26,9 @@ const findAllemployees = async (req, res, next) => {
                 total: count,
                 page: page,
                 pageSize: pageSize,
-                totalPages: Math.ceil(count / pageSize)
+                totalPages: Math.ceil(count / pageSize),
+                activeEmployees: count-leftCount,
+                inActiveEmployees: leftCount
             }
         });
 
@@ -49,7 +51,7 @@ const getEmployeeById = async (req, res, next) => {
         } else {
             res.status(401).json({
                 success: false,
-                message: " employee not found ",
+                message: " employee not found check employee id ",
             })
         }
     } catch (error) {
@@ -103,6 +105,17 @@ const saveEmployee = async (req, res, next) => {
 const saveNewEmployee = async (req, res, next) => {
     try {
         const employee = req.body;
+
+        // nodeValidator.valdate(employee, {
+        //  email : "required|email|minLenght:4"
+        //  name : "required|minLength:3"
+        // })
+
+        // TODO: Validate input 
+
+        // Existing
+
+
 
         const employeedetail = await createEmployee(employee);
 
