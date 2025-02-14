@@ -1,7 +1,17 @@
 const CustomError = require("../utils/errorHandler.util.js");
-const { findAll, findOne, getAllByBranch } = require('../repository/employeeMaster.repository');
+const { findAll, findOne, getAllByBranch, updateEmployee, createEmployee } = require('../repository/employeeMaster.repository');
+const moment = require("moment");
+
 
 const findAllemployees = async (req, res, next) => {
+    console.log("In ControllerF");
+
+    // console.log({ c: req.user.EMPCode });
+    // console.log({ e: req.user.email });
+    // console.log({ r: req.user.role });
+    // console.log({ n: req.user.name });
+
+
     try {
         const page = parseInt(req.query.page) || 1;
         const pageSize = 20;
@@ -55,7 +65,7 @@ const getAllEmployeeFromBranch = async (req, res, next) => {
         if (employees) {
             res.status(200).json({
                 success: true,
-                message: " All employee found successfully of "+branchCode+ " branch",
+                message: " All employee found successfully of " + branchCode + " branch",
                 data: employees
             });
         } else {
@@ -69,5 +79,49 @@ const getAllEmployeeFromBranch = async (req, res, next) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+const saveEmployee = async (req, res, next) => {
+    try {
+        const employee = req.body;
 
-module.exports = { findAllemployees, getEmployeeById , getAllEmployeeFromBranch };
+        const employeedetail = await updateEmployee(employee);
+        if (employeedetail > 0) {
+            res.status(200).json({
+                success: true,
+                message: " Employee Detail Updated Succesfully ",
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " employee not saved !  ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error ' });
+    }
+}
+const saveNewEmployee = async (req, res, next) => {
+    try {
+        const employee = req.body;
+
+        const employeedetail = await createEmployee(employee);
+
+        if (employeedetail) {
+            res.status(200).json({
+                success: true,
+                message: " Employee Detail Saved Succesfully ",
+                Data: employeedetail
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " Something went wrong employee not saved !  ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error ' });
+    }
+}
+
+module.exports = { findAllemployees, getEmployeeById, getAllEmployeeFromBranch, saveEmployee, saveNewEmployee };

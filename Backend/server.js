@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const errorMiddleware = require("./middleware/error.middleware");
 const cotectUsRout=require("./routers/contectUs.routs");            // contect need to change database and it's functionality
 const elementRout=require("./routers/element.routs");               //element login or user mastern routes
 const employee=require("./routers/employeeMaster.routs")            //employee master routes
@@ -24,8 +25,6 @@ app.use("/company", company)
 app.use("/branches", branches)
 
 
-// Error Handling Middleware
-const errorMiddleware = require("./middleware/error.middleware");
 app.use(errorMiddleware);
 
 
