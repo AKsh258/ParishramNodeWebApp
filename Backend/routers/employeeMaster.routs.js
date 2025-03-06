@@ -13,7 +13,7 @@ router.get("/get/:id", em.getEmployeeById);
 router.get("/branch/:branchCode", em.getAllEmployeeFromBranch);
 
 //rout to update employee       http://localhost:4000/employee/update
-router.post("/Update", authenticateToken, em.saveEmployee);
+router.post("/Update", em.saveEmployee);
 
 //rout to register New Employee     http://localhost:4000/employee/register
 router.post("/register", authenticateToken, em.saveNewEmployee)

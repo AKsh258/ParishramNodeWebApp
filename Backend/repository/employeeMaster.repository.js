@@ -49,13 +49,17 @@ const getAllByBranch = async (branchCode) => {
     }
 };
 const updateEmployee = async (employee) => {
-    const empid=employee.EmpID;
+    console.log("Employee to update:", employee); 
+    const empid = employee.EmpID;
+
     try {
-        return employee= await employeeMaster.update(employee,{where: {EmpID: empid}});
+        return await employeeMaster.update(employee, { where: { EmpID: empid } });
     } catch (error) {
-        throw new Error(' ! error in updating employee : ' + error.message);
+        console.error("Update failed:", error); 
+        throw new Error('Error in updating employee: ' + error.message);
     }
 };
+
 const createEmployee = async (employee) => {
     const empid=employee.EmpID;
     try {
