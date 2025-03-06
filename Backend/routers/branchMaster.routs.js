@@ -2,7 +2,7 @@ const express=require('express');
 const router=express.Router();
 const barnches =require("../controllers/branchMaster.controller");
 
-router.get("/", barnches.findAllBranches);
+router.post("/", barnches.findAllBranches);
 
 
 module.exports=router;

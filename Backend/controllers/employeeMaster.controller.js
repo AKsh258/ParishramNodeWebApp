@@ -6,10 +6,12 @@ const moment = require("moment");
 const findAllemployees = async (req, res, next) => {
     console.log("In ControllerF");
 
-    console.log({ employeeCode: req.user.EMPCode });
-    console.log({ Email: req.user.email });
-    console.log({ Role: req.user.role });
-    console.log({ Name: req.user.name });
+
+//     console.log({ employeeCode: req.user.EMPCode });
+//     console.log({ Email: req.user.email });
+//     console.log({ Role: req.user.role });
+//     console.log({ Name: req.user.name });
+//21b044059089244af52c4af389ee2a8e0938e463
 
 
     try {
