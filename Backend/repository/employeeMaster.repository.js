@@ -1,4 +1,5 @@
 const employeeMaster = require("../models/employeeMaster.model.js");
+const employeeEntitlement=require("../models/employeeEntitlement.model.js")
 const CustomError = require("../utils/errorHandler.util.js");
 const moment = require('moment');
 
@@ -78,6 +79,14 @@ const findOneEntitle = async (empid) => {
         throw new Error('Error in fetching entitlement by id: ' + error.message);
     }
 };
-
-
-module.exports = { findAll, findOne, getAllByBranch, updateEmployee, createEmployee, findOneEntitle };
+const createEntitle=async(entitle)=>{
+    try{
+        if (!Array.isArray(entitle)) {
+            return await employeeEntitlement.create(entitle);
+        }
+        return await employeeEntitlement.bulkCreate(entitle);
+    }catch(error){
+        throw new Error('Error in saving entitlement ' + error.message);
+    }
+}
+module.exports = { findAll, findOne, getAllByBranch, updateEmployee, createEmployee, findOneEntitle, createEntitle };

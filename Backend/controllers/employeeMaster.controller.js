@@ -1,19 +1,17 @@
 const CustomError = require("../utils/errorHandler.util.js");
-const { findAll, findOne, getAllByBranch, updateEmployee, createEmployee, findOneEntitle } = require('../repository/employeeMaster.repository');
+const { 
+    findAll, 
+    findOne, 
+    getAllByBranch, 
+    updateEmployee, 
+    createEmployee, 
+    findOneEntitle, 
+    createEntitle 
+} = require('../repository/employeeMaster.repository');
 const moment = require("moment");
 
 
 const findAllemployees = async (req, res, next) => {
-    console.log("In ControllerF");
-
-
-//     console.log({ employeeCode: req.user.EMPCode });
-//     console.log({ Email: req.user.email });
-//     console.log({ Role: req.user.role });
-//     console.log({ Name: req.user.name });
-//21b044059089244af52c4af389ee2a8e0938e463
-
-
     try {
         const page = parseInt(req.query.page) || 1;
         const pageSize = 20;
@@ -108,17 +106,6 @@ const saveNewEmployee = async (req, res, next) => {
     try {
         const employee = req.body;
 
-        // nodeValidator.valdate(employee, {
-        //  email : "required|email|minLenght:4"
-        //  name : "required|minLength:3"
-        // })
-
-        // TODO: Validate input 
-
-        // Existing
-
-
-
         const employeedetail = await createEmployee(employee);
 
         if (employeedetail) {
@@ -162,11 +149,9 @@ const getEntitlementByEmpId = async (req, res, next) => {
 }
 const saveEntitlement=async(req, res, next)=>{
     try{
-
         // Get fileds.
 
         // check the data is existing or not
-
 
         // If existing entries for same employee, udpate data
 
@@ -174,15 +159,34 @@ const saveEntitlement=async(req, res, next)=>{
 
         // return success or failure response. 
 
-    res.status(200).json("Saving entitlement.")
+        const entitle = req.body;
 
+        const employeeEntitle = await createEntitle(entitle);
 
-
+        if (employeeEntitle) {
+            res.status(200).json({
+                success: true,
+                message: " Employee Entitlement Details Saved Succesfully ",
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " Something went wrong entitlement not saved !  ",
+            })
+        }
     }catch(error){
         console.error('Error in saving entitlement :', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 }
 
-
-module.exports = { findAllemployees, getEmployeeById, getAllEmployeeFromBranch, saveEmployee, saveNewEmployee, getEntitlementByEmpId, saveEntitlement };
+module.exports = 
+{ 
+    findAllemployees, 
+    getEmployeeById, 
+    getAllEmployeeFromBranch, 
+    saveEmployee, 
+    saveNewEmployee, 
+    getEntitlementByEmpId, 
+    saveEntitlement 
+};
