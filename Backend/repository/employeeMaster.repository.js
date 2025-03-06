@@ -64,6 +64,20 @@ const createEmployee = async (employee) => {
         throw new Error(' ! error in saving employee : ' + error.message);
     }
 };
+const findOneEntitle = async (empid) => {
+    try {
+        const employeeEntitlement = await sequelize.query(
+            "SELECT * FROM View_EmployeeEntitlement WHERE empcode = :empid",
+            {
+                replacements: { empid }, 
+                type: sequelize.QueryTypes.SELECT,
+            }
+        );
+        return employeeEntitlement;
+    } catch (error) {
+        throw new Error('Error in fetching entitlement by id: ' + error.message);
+    }
+};
 
 
-module.exports = { findAll, findOne, getAllByBranch, updateEmployee, createEmployee };
+module.exports = { findAll, findOne, getAllByBranch, updateEmployee, createEmployee, findOneEntitle };

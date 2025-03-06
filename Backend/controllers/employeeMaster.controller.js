@@ -1,5 +1,5 @@
 const CustomError = require("../utils/errorHandler.util.js");
-const { findAll, findOne, getAllByBranch, updateEmployee, createEmployee } = require('../repository/employeeMaster.repository');
+const { findAll, findOne, getAllByBranch, updateEmployee, createEmployee, findOneEntitle } = require('../repository/employeeMaster.repository');
 const moment = require("moment");
 
 
@@ -45,7 +45,7 @@ const getEmployeeById = async (req, res, next) => {
         if (employee) {
             res.status(200).json({
                 success: true,
-                message: " employee found succesfull successfully ",
+                message: " employee found successfully ",
                 data: employee
             });
         } else {
@@ -137,4 +137,50 @@ const saveNewEmployee = async (req, res, next) => {
     }
 }
 
-module.exports = { findAllemployees, getEmployeeById, getAllEmployeeFromBranch, saveEmployee, saveNewEmployee };
+const getEntitlementByEmpId = async (req, res, next) => {
+    try {
+        const empid = req.params.id;
+        const employeeEntitlement = await findOneEntitle(empid);
+        if (employeeEntitlement) {
+            res.status(200).json({
+                success: true,
+                message: " employee Intitlement found successfully ",
+                data: employeeEntitlement
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " employee Intitlement not found check employee id ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+const saveEntitlement=async(req, res, next)=>{
+    try{
+
+        // Get fileds.
+
+        // check the data is existing or not
+
+
+        // If existing entries for same employee, udpate data
+
+        // Else , INsert new data.
+
+        // return success or failure response. 
+
+    res.status(200).json("Saving entitlement.")
+
+
+
+    }catch(error){
+        console.error('Error in saving entitlement :', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+module.exports = { findAllemployees, getEmployeeById, getAllEmployeeFromBranch, saveEmployee, saveNewEmployee, getEntitlementByEmpId, saveEntitlement };
