@@ -5,7 +5,7 @@
 display: flex;
 justify-content: space-around;
 align-items: center;
-z-index: 20;
+/* z-index: 20; */
 
 }
 .main {
@@ -54,6 +54,7 @@ z-index: 20;
   padding: 25px;
   background-color: #ecf0f3;
   transition: 1.25s;
+  z-index: -1;
 
 }
 

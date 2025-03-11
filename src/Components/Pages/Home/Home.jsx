@@ -5,9 +5,9 @@ import { Link } from "react-router-dom";
 const Home = () => {
  
   return (
-    <Container fluid className={styles.container}>
+    <Container fluid className={styles.container} style={{backgroundColor:"", zIndex:"1"}}>
 
-      <video autoPlay muted loop className={styles.backgroundVideo}>
+      <video autoPlay muted loop className={styles.backgroundVideo}   onError={(e) => console.log("Video failed to load:", e)}>
         <source
           src="/media/bgvideo.05aef4384c1e36acf944.mp4"
           type="video/mp4"

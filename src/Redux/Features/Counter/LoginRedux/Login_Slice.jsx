@@ -55,6 +55,8 @@ export const loginsubData = createAsyncThunk(
       console.log("Raw rESPONSE--->",response.data)
       let responseData = response.data;
 
+
+
       if (typeof responseData === "string") {
         // const jsonStartIndex = responseData.indexOf("{");
         // responseData = JSON.parse(responseData.slice(jsonStartIndex));

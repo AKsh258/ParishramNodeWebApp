@@ -1,25 +1,20 @@
 .container{
     background-color: #253f4b;
-    box-shadow: 0 4px 15px rgba(0, 0, 0);
-    /* height: 100vh; */
+    box-shadow: 0 4px 15px #253f4b;
+
     border-radius: 20px;
     z-index: 1;
     color: white;
-    padding: 10px;
+    padding: 5px;
+
+ 
 }
-.row{
-    /* display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap; */
-   
+.seactionA,.sectionB,.sectionC{
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0); 
 }
-.row1   {
-    /* display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap; */
-}
+
 .col{
     display: flex;
     justify-content: space-around;
@@ -81,6 +76,8 @@ column-gap: 20px;
     transition: 0.25s ease;
     border-radius: 8px;
     box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+    list-style: none;
+    color: black;
   }
 
   .form__input:focus {
@@ -100,44 +97,39 @@ column-gap: 20px;
 
 
   /* Submit Button css */
-  .submitButton {
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 30px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-    width: 100px;
-    margin: 5px;
-  }
-  
-  .submitButton:hover {
-    background-color: #0056b3; 
-    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
-  }
-  
-  .submitButton:focus {
-    outline: none;
-    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.6);
-  }
-  
-  .submitButton:active {
-    background-color: #004085; 
-  }
-  
-  .submitButton:disabled {
-    background-color: #c0c0c0;
-    cursor: not-allowed;
-  }
-  @media screen and (max-width: 768px) {
-    .row {
-        flex-direction: column; 
-        align-items: stretch; 
-    }
+  .submitButton { 
+    background-color: #1a2c34;
+    box-shadow: 0 10px 10px #253f4b;
+    font-size: 1rem;
+  color: #fafafa;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 2px solid #fafafa;
+  background-color: #1a2c34;
+  box-shadow: 3px 3px #fafafa;
+  cursor: pointer;
+  margin: 35px 0;
+
 }
 
+.submitButton:active {
+  box-shadow: none;
+  transform: translate(3px, 3px);
+}
+@media screen and (max-width: 768px) {
+  .submitButton {
+    font-size: 5px;  
+    padding: 3px 10px; 
+    width: 100%;        
+    margin: 20px 0;       
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
 .formcontainer1 {
   position: relative;
   background-color: black;
@@ -149,5 +141,141 @@ column-gap: 20px;
   z-index: 20;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0); /* Adding box-shadow */
+  box-shadow: 0 4px 15px rgba(0, 0, 0); 
+}
+.menic{
+color: white;
+font-size: 2rem;
+font-weight: 900;
+}
+
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+/* Details card container */
+.detailsCard {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 95%;
+  /* max-width: 800px; */
+  text-align: left;
+  color: black;
+  /* max-height: 80%; */
+  overflow-y: auto;
+  position: relative;
+  height: 90%;
+}
+
+
+.detailsCard h3 {
+  text-align: center;
+  margin-bottom: 8px;
+  margin-top: 20px;
+}
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #333;
+}
+
+.closeButton:hover {
+  color: red;
+}
+/* Add background colors for specific sections */
+.tableSectionHeader {
+  background-color: #f4f6f9;
+  font-weight: bold;
+
+  color: #333;
+}
+
+.highlightRow {
+  background-color: #e3f2fd;
+}
+
+.table_container {
+  overflow-x: auto;
+  border-radius: 20px;
+  /* background-color: #1a2c34;
+  box-shadow: 0 10px 10px #253f4b;
+  box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9; */
+}
+/* Make the table responsive */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+ background-color: #1a2c34;
+  box-shadow: 0 10px 10px #253f4b;
+  /* box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9; */
+}
+
+th, td {
+  padding: 8px 16px;
+  /* text-align: center; */
+  border: 1px solid #ddd;
+}
+
+th {
+  background-color: #007bff;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .table th, .table td {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .table_container {
+    overflow-x: auto;
+  }
+}
+.CtcDiv{
+  background-color: #1a2c34;
+
+  box-shadow: inset 2px 2px 4px #d1d9e6, inset -2px -2px 4px #f9f9f9;
+}
+.tr1{
+  background-color: red;
+}
+.entitleSub{
+  background-color: #253f4b;
+  border-radius: 50px;
+  box-shadow: inset 4px 4px 10px #253f4b, inset -4px -4px 10px #253f4b;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 5px 15px;
+  transition: all 0.2s ease-in-out;
+  border: 2px solid rgb(206, 206, 206);
+
+}
+.entitleSub:hover {
+  box-shadow: inset 2px 2px 5px #1a2c34, inset -2px -2px 5px #1a2c34, 2px 2px 5px #1a2c34, -2px -2px 5px #1a2c34;
+}
+
+.entitleSub:focus {
+  outline: none;
+  box-shadow: inset 2px 2px 5px #1a2c34, inset -2px -2px 5px #1a2c34, 2px 2px 5px #1a2c34, -2px -2px 5px #ffffff;
 }

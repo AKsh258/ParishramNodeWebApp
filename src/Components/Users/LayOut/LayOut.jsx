@@ -4,7 +4,7 @@ import { Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import { RiAdminFill } from "react-icons/ri";
 import { GrResources } from "react-icons/gr";
 import { CgUserAdd } from "react-icons/cg";
-import { FaPersonCircleCheck } from "react-icons/fa6";
+import { FaArrowRightArrowLeft, FaPersonCircleCheck } from "react-icons/fa6";
 import { IoReceiptOutline } from "react-icons/io5";
 import { HiOutlineBars3BottomRight } from "react-icons/hi2";
 import { FcBusinessman } from "react-icons/fc";
@@ -14,6 +14,15 @@ import { FaBarsProgress } from "react-icons/fa6";
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logOut } from '../../../Redux/Features/Counter/LoginRedux/Login_Slice';
+import { FaUserAlt } from "react-icons/fa";
+import { setActiveSection } from '../../../Redux/Features/Counter/ActiveSectionSlice';
+import { FaMoneyBillAlt } from "react-icons/fa";
+import { FaBriefcase } from "react-icons/fa"
+import { FaAddressCard } from "react-icons/fa";
+import { MdOutlineCastForEducation } from "react-icons/md";
+import { GiBranchArrow } from "react-icons/gi";
+import { BsBank2 } from "react-icons/bs";
+import { RiPsychotherapyFill } from "react-icons/ri";
 const Layout = () => {
 const dispatch=useDispatch()
 const navigate=useNavigate()
@@ -25,6 +34,10 @@ const navigate=useNavigate()
     authorization: false,  
     moreOptionsHover: false, 
   });
+  const handleMenuClick = (section) => {
+    // console.log("Click on Section ",section)
+    dispatch(setActiveSection(section));
+  };
 
   const toggleSidebar = () => {
     setSidebarVisible(!sidebarVisible);
@@ -63,7 +76,7 @@ const navigate=useNavigate()
     }
   };
   return (
-    <div className={`${styles.layout} ${sidebarVisible ? styles.layoutWithSidebar : styles.layoutWithoutSidebar}`}>
+    <div className={`${styles.layout} ${sidebarVisible ? styles.layoutWithSidebar : styles.layoutWithoutSidebar}`} >
       {/* Sidebar */}
       <div className={`${styles.sidebar} ${sidebarVisible ? styles.show : styles.hide}`}>
         <nav className={styles.nav}>
@@ -119,13 +132,13 @@ const navigate=useNavigate()
                   </div>
                   <ul className={`${styles.dropdownMenu} ${isDropdownOpen.authorization ? styles.showMenu : ''}`}>
 
-                  <li><Link className={styles.link_li} to="/home/employeemaster"><TbBrandSuperhuman className={styles.menic}/>Employee Master</Link></li>
+                  <li><Link className={styles.link_li} to="/home/employeedata"><TbBrandSuperhuman className={styles.menic}/>Employee Master</Link></li>
                   <li>Leave</li>
                   <li>Salary</li>
                   <li>IncomeTax Slab Master</li>
                   <li>Investment Plan Master</li>
                    
-                   <li>Degination</li>
+             <Link to="salarycalc">      <li>Degination</li></Link>
                   
                   </ul>
                 </li>
@@ -133,7 +146,32 @@ const navigate=useNavigate()
                     <li>General</li>
                   </ul>
                 </li>
-
+                <li
+                  className={`${styles.dropdown} ${isDropdownOpen.systemInit ? styles.open : ''}`}
+                  onMouseEnter={() => handleMouseEnter('systemInit')}
+                  onMouseLeave={() => handleMouseLeave('systemInit')}
+                >
+                  <div className={styles.dropdownHeader}>
+                    <span className={styles.menuItem}><FaArrowRightArrowLeft className={styles.menic}/>onBoarding</span>
+                    <span className={styles.dropdownIcon}>
+                      {isDropdownOpen.systemInit ? '▲' : '▼'}
+                    </span>
+                  </div>
+                  <ul className={`${styles.dropdownMenu} ${isDropdownOpen.systemInit ? styles.showMenu : ''}`}>
+                    <li><Link className={styles.link_li} to="/home/employeemaster"><FaUserAlt className={styles.menic}/>Personal Details</Link></li>
+                    <li onClick={() => handleMenuClick('sectionA')}>
+                    <FaUserAlt className={styles.menic}/>Personal</li>
+                  
+                    <li onClick={() => handleMenuClick('sectionB')}>  <FaMoneyBillAlt className={styles.menic}/> Entitlement</li>
+                    <li onClick={() => handleMenuClick('sectionC')}><FaBriefcase className={styles.menic}/>Employement Details</li>
+                    <li onClick={() => handleMenuClick('sectionD')}><FaAddressCard className={styles.menic}/>Address Details</li>
+                    <li onClick={() => handleMenuClick('sectionE')}><GiBranchArrow className={styles.menic}/>RM/Branch Details</li>
+                    <li onClick={() => handleMenuClick('sectionF')}><MdOutlineCastForEducation className={styles.menic}/>Education</li> 
+                    <li onClick={() => handleMenuClick('sectionG')}><BsBank2 className={styles.menic}/>Bank Details</li>
+                    <li onClick={() => handleMenuClick('sectionH')}><RiPsychotherapyFill className={styles.menic}/>Others Details</li> 
+                    
+                  </ul>
+                </li>
             <li
                   className={`${styles.dropdown} ${isDropdownOpen.systemInit ? styles.open : ''}`}
                   onMouseEnter={() => handleMouseEnter('systemInit')}

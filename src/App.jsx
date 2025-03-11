@@ -26,13 +26,15 @@ import Talent from './Components/Pages/Talent/Talent';
 import OffBoarding from './Components/Pages/OffBoarding/OffBoarding';
 import Header2 from './Components/Header/Header2';
 import ProtectedRoute from './Components/ProtectedRoutes/ProtectedRout';
+import AllData_Employee from './Components/Pages/EmployeeMaster/AllData_Employee';
+import SalaryCalculator from './Components/Pages/EmployeeMaster/Fields/SalaryCalculator';
 
 
 
 
 const App = () => {
   return (
-    <div>
+    <>
 
 
 
@@ -61,11 +63,13 @@ const App = () => {
        <Route path="/home" element={<Layout />}>
         
             <Route path="employeemaster" element={<EmployeeMaster />} />
+            <Route path="employeedata" element={<AllData_Employee />} />
+            <Route path="salarycalc" element={<SalaryCalculator />} />
           </Route>
           </Route>
         </Routes>
         </Router>
-    </div>
+    </>
   )
 }
 
