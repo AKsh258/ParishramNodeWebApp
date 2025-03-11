@@ -1,6 +1,8 @@
 const employeeMaster = require("../models/employeeMaster.model.js");
 const employeeEntitlement=require("../models/employeeEntitlement.model.js")
 const CustomError = require("../utils/errorHandler.util.js");
+const { executeQuery } = require('../utils/dbhelper.util.js');
+
 const moment = require('moment');
 
 const findAll = async (page,pageSize) => {
@@ -70,19 +72,23 @@ const createEmployee = async (employee) => {
     }
 };
 const findOneEntitle = async (empid) => {
-    try {
-        const employeeEntitlement = await sequelize.query(
-            "SELECT * FROM View_EmployeeEntitlement WHERE empcode = :empid",
-            {
-                replacements: { empid }, 
-                type: sequelize.QueryTypes.SELECT,
-            }
-        );
-        return employeeEntitlement;
-    } catch (error) {
-        throw new Error('Error in fetching entitlement by id: ' + error.message);
-    }
+
+    console.log(`Type of empid: ${typeof empid}`);
+
+    if (!empid) throw new Error('Employee ID is required');
+
+    console.log(`Fetching entitlement for empid: ${empid}`);
+
+    const query = `SELECT * FROM EmployeeEntitlement WHERE EmpCode = '${empid}'`;
+
+    const result = await executeQuery(query);
+
+    console.log(`Entitlement length: ${result.length}`);
+
+    return result;
+
 };
+
 const createEntitle=async(entitle)=>{
     try{
         if (!Array.isArray(entitle)) {
@@ -93,4 +99,18 @@ const createEntitle=async(entitle)=>{
         throw new Error('Error in saving entitlement ' + error.message);
     }
 }
+
+// const saveEmployee = async (employee) => {
+//     const empid=employee.EmpID;
+//     try {
+//         if ( employee= await employeeMaster.findOne({ where: { EmpID: empid } })){
+//             return employee= await employeeMaster.update(employee,{where: {EmpID: empid}});
+//         } else {
+//             return employee= await employeeMaster.create(employee);
+//         }
+//     } catch (error) {
+//         throw new Error(' ! error in saving employee : ' + error.message);
+//     }
+// };
+
 module.exports = { findAll, findOne, getAllByBranch, updateEmployee, createEmployee, findOneEntitle, createEntitle };

@@ -18,5 +18,4 @@ function initializeSequelize(db,dbname){
 const commonSecuelize= initializeSequelize(process.env.DB4, 'commondatabase');
 const element = initializeSequelize(process.env.DB5, 'element parishram');
 
-
 module.exports = { commonSecuelize, element };

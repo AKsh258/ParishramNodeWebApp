@@ -126,27 +126,34 @@ const saveNewEmployee = async (req, res, next) => {
     }
 }
 
-const getEntitlementByEmpId = async (req, res, next) => {
+const getEntitlementByEmpId = async (req, res) => {
     try {
-        const empid = req.params.id;
-        const employeeEntitlement = await findOneEntitle(empid);
-        if (employeeEntitlement) {
-            res.status(200).json({
+        const empid = req.params.empid;
+
+        if (!empid) {
+            
+            return res.status(400).json({ success: false, message: 'Employee ID is required' });
+        }
+
+        const entitlement = await findOneEntitle(empid);
+
+        if (entitlement.length>0) {
+            return res.status(200).json({
                 success: true,
-                message: " employee Intitlement found successfully ",
-                data: employeeEntitlement
+                message: 'Employee entitlement found successfully',
+                data: entitlement
             });
         } else {
-            res.status(401).json({
+            return res.status(404).json({
                 success: false,
-                message: " employee Intitlement not found check employee id ",
-            })
+                message: 'Employee entitlement not found use a diffrent employee id '
+            });
         }
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        console.error('Error fetching entitlement:', error.message);
+        res.status(500).json({ success: false, message: 'Internal server error' });
     }
-}
+};
 const saveEntitlement=async(req, res, next)=>{
     try{
         // Get fileds.
@@ -169,7 +176,7 @@ const saveEntitlement=async(req, res, next)=>{
                 message: " Employee Entitlement Details Saved Succesfully ",
             });
         } else {
-            res.status(401).json({
+            res.status(401).json({ 
                 success: false,
                 message: " Something went wrong entitlement not saved !  ",
             })

@@ -16,11 +16,7 @@ router.get("/branch/:branchCode", em.getAllEmployeeFromBranch);
 router.post("/Update", em.saveEmployee);
 
 //rout to register New Employee     http://localhost:4000/employee/register
-router.post("/register", authenticateToken, em.saveNewEmployee)
-
-//rout to get employee entitlement by empid 
-router.get("/getEntitlement", authenticateToken, em.getEntitlementByEmpId);
-
+router.post("/register", authenticateToken, em.saveNewEmployee);
 
 
 //salary related routs 
@@ -28,5 +24,7 @@ router.get("/getEntitlement", authenticateToken, em.getEntitlementByEmpId);
 //rout to save entitle of an employee save into employeeentitlement, view_employeesalarydetailsrep , view_employeeentitlement and employeemaster table 
 router.post("/saveEntitle", authenticateToken, em.saveEntitlement);
 
+//rout to get employee entitlement by empid 
+router.get("/getEntitlement/:empid", authenticateToken, em.getEntitlementByEmpId);
 
 module.exports=router;
