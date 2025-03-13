@@ -154,38 +154,40 @@ const getEntitlementByEmpId = async (req, res) => {
         res.status(500).json({ success: false, message: 'Internal server error' });
     }
 };
-const saveEntitlement=async(req, res, next)=>{
-    try{
-        // Get fileds.
 
-        // check the data is existing or not
+const saveEntitlement = async (req, res) => {
+    try {
+        const entitlements = req.body;
 
-        // If existing entries for same employee, udpate data
+        if (!Array.isArray(entitlements) || entitlements.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'Invalid or empty data',
+            });
+        }
 
-        // Else , INsert new data.
+        const result = await  createEntitle (entitlements);
 
-        // return success or failure response. 
-
-        const entitle = req.body;
-
-        const employeeEntitle = await createEntitle(entitle);
-
-        if (employeeEntitle) {
+        if (result) {
             res.status(200).json({
                 success: true,
-                message: " Employee Entitlement Details Saved Succesfully ",
+                message: 'Employee Entitlement Details Saved Successfully',
             });
         } else {
-            res.status(401).json({ 
+            res.status(400).json({
                 success: false,
-                message: " Something went wrong entitlement not saved !  ",
-            })
+                message: 'Failed to save entitlement details',
+            });
         }
-    }catch(error){
-        console.error('Error in saving entitlement :', error);
-        res.status(500).json({ error: 'Internal server error' });
+    } catch (error) {
+        console.error('Error in saving entitlement:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+            error: error.message
+        });
     }
-}
+};
 
 module.exports = 
 { 

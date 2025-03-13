@@ -1,5 +1,6 @@
+const { Op, Sequelize } = require('sequelize');
 const employeeMaster = require("../models/employeeMaster.model.js");
-const employeeEntitlement=require("../models/employeeEntitlement.model.js")
+const Entitlement=require("../models/employeeEntitlement.model.js")
 const CustomError = require("../utils/errorHandler.util.js");
 const { executeQuery } = require('../utils/dbhelper.util.js');
 
@@ -46,7 +47,16 @@ const findOne = async (empid) => {
 };
 const getAllByBranch = async (branchCode) => {
     try {
-        return employee= await employeeMaster.findAll({ where: { branchCode: branchCode } });
+        const employees = await employeeMaster.findAll({
+            where: {
+                branchCode: branchCode,
+                [Op.and]: [
+                    Sequelize.literal("ISNULL(IsBilled, 0) = 1"),
+                    Sequelize.literal("ISNULL(hasLeft, 0) = 1")
+                ]
+            },
+        });
+        return employees;
     } catch (error) {
         throw new Error('Error in fetching employee by branch: ' + error.message);
     }
@@ -89,16 +99,48 @@ const findOneEntitle = async (empid) => {
 
 };
 
-const createEntitle=async(entitle)=>{
-    try{
-        if (!Array.isArray(entitle)) {
-            return await employeeEntitlement.create(entitle);
-        }
-        return await employeeEntitlement.bulkCreate(entitle);
-    }catch(error){
-        throw new Error('Error in saving entitlement ' + error.message);
+const createEntitle = async (entitlements) => {
+    try {
+        await Promise.all(
+            entitlements.map(async (entitle, index) => {
+                const { EmpCode, SalHead, FixedAmount } = entitle;
+
+                // Check if the record exists
+                const existingEntitlement = await Entitlement.findOne({
+                    where: { EmpCode, SalHead }
+                });
+
+                if (existingEntitlement) {
+                    // Update FixedAmount for existing record
+                    await existingEntitlement.update({ FixedAmount });
+                } else {
+                    //gittng the all value from salaryheadmaster
+
+                    // Insert new record with default values
+                    await Entitlement.create({
+                        EmpCode,
+                        sno: index + 1, // You can adjust logic for sno if needed
+                        SalHead,
+                        isEditable: true, // Default value
+                        FixedAmount,
+                        Entitle: FixedAmount, // Default to FixedAmount
+                        changedDate: new Date(), // Default to current date
+                        Remarks: "Auto-generated entry", // Default remark
+                        EntCatg: "Salary", // Default value
+                        Type: "Earning", // Default value
+                        Deduction: 0, // Default value
+                        LedgerCode: "DEFAULT001" // Default value
+                    });
+                }
+            })
+        );
+
+        return true;
+    } catch (error) {
+        console.error('Error in repository:', error);
+        return false;
     }
-}
+};
 
 // const saveEmployee = async (employee) => {
 //     const empid=employee.EmpID;
