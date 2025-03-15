@@ -114,11 +114,79 @@ const findOneEntitle = async ( empid ) =>
 
 };
 
+// const createEntitle = async ( entitlements ) =>
+// {
+//     try
+//     {
+//         let snoCounter = 1;
+//         for ( const entitle of entitlements )
+//         {
+//             const { EmpCode, SalHead, FixedAmount } = entitle;
+//             // Check if the record exists
+//             const existingEntitlement = await Entitlement.findOne( {
+//                 where: { EmpCode, SalHead }
+//             } );
+
+//             if ( existingEntitlement )
+//             {
+//                 // Update existing record
+//                 return await Entitlement.update( {
+//                     FixedAmount,
+//                     Entitle: FixedAmount,
+//                     changedDate: new Date().toISOString()
+//                 }, {
+//                     where: {
+//                         EmpCode: EmpCode,
+//                         SalHead: SalHead
+//                     }
+//                 } );
+//             } else
+//             {
+//                 // gittng the all value from salaryheadmaster
+
+//                 const result = await executeQuery( `SELECT * FROM SalaryHeadMaster WHERE Code = '${ SalHead }'` );
+//                 if ( result )
+//                 {
+//                     //const EarningDeduction = result?.[0]?.EarningDeduction?.toLowerCase() !== 'earning';
+//                     return await Entitlement.create( {
+//                         EmpCode,
+//                         sno: snoCounter++,
+//                         SalHead,
+//                         isEditable: true,
+//                         FixedAmount,
+//                         Entitle: FixedAmount,
+//                         changedDate: new Date().toISOString(),
+//                         Remarks: " ",
+//                         EntCatg: "SCD00001",
+//                         Type: result[ 0 ]?.Description || " ",
+//                         Deduction: result?.[ 0 ]?.EarningDeduction?.toLowerCase() === 'earning' ? 0 : FixedAmount,
+//                         LedgerCode: "NULL"
+//                     } );
+//                 } else
+//                 {
+//                     console.error( 'Error in finding salary head ', error );n
+//                     throw new Error( ' ! error in saving EmployeeEntitlement not find salary head : ' + error.message );
+//                     return false;
+//                 }
+//             }
+//         }
+//     } catch ( error )
+//     {
+//         console.error( 'Error saving/updating entitlements:', error );
+//         throw new Error( ' ! error in saving EmployeeEntitlement : ' + error.message );
+//     }
+// }
+
 const createEntitle = async ( entitlements ) =>
 {
     try
     {
-        let snoCounter = 1;
+        let snoCounter;
+        const count = await Entitlement.count( { where: { EmpCode: entitlements[0].EmpCode } } );
+        snoCounter = ( count === 0 ) ? 1 : count+1;
+        
+        const results = []; // Collect results for all operations
+
         for ( const entitle of entitlements )
         {
             const { EmpCode, SalHead, FixedAmount } = entitle;
@@ -131,25 +199,24 @@ const createEntitle = async ( entitlements ) =>
             if ( existingEntitlement )
             {
                 // Update existing record
-                await Entitlement.update( {
-                    FixedAmount,
-                    Entitle: FixedAmount,
-                    changedDate: new Date().toISOString()
-                }, {
-                    where: {
-                        EmpCode: EmpCode,
-                        SalHead: SalHead
+                await Entitlement.update(
+                    {
+                        FixedAmount,
+                        Entitle: FixedAmount,
+                        changedDate: new Date().toISOString()
+                    },
+                    {
+                        where: { EmpCode, SalHead }
                     }
-                } );
-                console.log( `Updated: ${ EmpCode } - ${ SalHead }` );
+                );
+                results.push( { status: "updated", EmpCode, SalHead } ); // Log update result
             } else
             {
-                // gittng the all value from salaryheadmaster
-
+                // Get data from SalaryHeadMaster
                 const result = await executeQuery( `SELECT * FROM SalaryHeadMaster WHERE Code = '${ SalHead }'` );
                 if ( result )
                 {
-                    //const EarningDeduction = result?.[0]?.EarningDeduction?.toLowerCase() !== 'earning';
+
 
                     await Entitlement.create( {
                         EmpCode,
@@ -162,22 +229,27 @@ const createEntitle = async ( entitlements ) =>
                         Remarks: " ",
                         EntCatg: "SCD00001",
                         Type: result[ 0 ]?.Description || " ",
-                        Deduction: result?.[ 0 ]?.EarningDeduction?.toLowerCase() === 'earning' ? 0 : FixedAmount,
+                        Deduction: result?.[ 0 ]?.EarningDeduction?.toLowerCase() === "earning" ? 0 : FixedAmount,
                         LedgerCode: "NULL"
                     } );
+                    results.push( { status: "created", EmpCode, SalHead } ); // Log create result
                 } else
                 {
-                    console.error( 'Error in finding salary head ', error );
-                    return false;
+                    console.error( "Error in finding salary head" );
+                    results.push( { status: "error", EmpCode, SalHead, message: "Salary head not found" } );
                 }
-                console.log( `Created: ${ EmpCode } - ${ SalHead }` );
             }
         }
+
+        // Return the consolidated results
+        return results;
     } catch ( error )
     {
-        console.error( 'Error saving/updating entitlements:', error );
+        console.error( "Error saving/updating entitlements:", error );
+        throw new Error( "Error in saving EmployeeEntitlement: " + error.message );
     }
-}
+};
+
 
 
 // const saveEmployee = async (employee) => {
