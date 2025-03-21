@@ -182,9 +182,9 @@ const createEntitle = async ( entitlements ) =>
     try
     {
         let snoCounter;
-        const count = await Entitlement.count( { where: { EmpCode: entitlements[0].EmpCode } } );
-        snoCounter = ( count === 0 ) ? 1 : count+1;
-        
+        const count = await Entitlement.count( { where: { EmpCode: entitlements[ 0 ].EmpCode } } );
+        snoCounter = ( count === 0 ) ? 1 : count + 1;
+
         const results = []; // Collect results for all operations
 
         for ( const entitle of entitlements )
@@ -231,6 +231,7 @@ const createEntitle = async ( entitlements ) =>
                         Type: result[ 0 ]?.Description || " ",
                         Deduction: result?.[ 0 ]?.EarningDeduction?.toLowerCase() === "earning" ? 0 : FixedAmount,
                         LedgerCode: "NULL"
+
                     } );
                     results.push( { status: "created", EmpCode, SalHead } ); // Log create result
                 } else
@@ -250,6 +251,17 @@ const createEntitle = async ( entitlements ) =>
     }
 };
 
+const getSalaryHeaddb = async ( empid ) =>
+{
+    try
+    {
+        return result = await executeQuery( `SELECT * FROM SalaryHeadMaster` );
+    } catch ( error )
+    {
+        throw new Error( 'Error in fetching SalaryHeadMaster ' + error.message );
+    }
+};
+
 
 
 // const saveEmployee = async (employee) => {
@@ -265,4 +277,4 @@ const createEntitle = async ( entitlements ) =>
 //     }
 // };
 
-module.exports = { findAll, findOne, getAllByBranch, updateEmployee, createEmployee, findOneEntitle, createEntitle };
+module.exports = { findAll, findOne, getAllByBranch, updateEmployee, createEmployee, findOneEntitle, createEntitle, getSalaryHeaddb };

@@ -27,4 +27,7 @@ router.post("/saveEntitle", authenticateToken, em.saveEntitlement);
 //rout to get employee entitlement by empid 
 router.get("/getEntitlement/:empid", authenticateToken, em.getEntitlementByEmpId);
 
+//rout to get salary head master to get saleryheadcode and saray head name
+router.get("/getSalaryHead", authenticateToken, em.getSalaryHead);
+
 module.exports=router;

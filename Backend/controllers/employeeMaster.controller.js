@@ -6,7 +6,8 @@ const {
     updateEmployee, 
     createEmployee, 
     findOneEntitle, 
-    createEntitle 
+    createEntitle,
+    getSalaryHeaddb
 } = require('../repository/employeeMaster.repository');
 const moment = require("moment");
 
@@ -188,7 +189,31 @@ const saveEntitlement = async (req, res) => {
         });
     }
 };
-
+const getSalaryHead=async(req,res,next)=>{
+    try {
+        const salHead = await getSalaryHeaddb();
+        if (salHead.length>0) {
+            const headData = salHead.map(head => ({
+                SalHeadCode: head.Code,
+                Head: head.Head,
+                Description: head.Description
+            }));
+            res.status(200).json({
+                success: true,
+                message: "Salary Head Found Succesfully ",
+                data: headData
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: "Salary Head master invoke an error try after sometime",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
 module.exports = 
 { 
     findAllemployees, 
@@ -197,5 +222,6 @@ module.exports =
     saveEmployee, 
     saveNewEmployee, 
     getEntitlementByEmpId, 
-    saveEntitlement 
+    saveEntitlement,
+    getSalaryHead
 };
