@@ -1,8 +1,10 @@
 const express=require('express');
 const router=express.Router();
-const barnches =require("../controllers/branchMaster.controller");
+const branches =require("../controllers/branchMaster.controller");
 
-router.post("/", barnches.findAllBranches);
+router.post("/", branches.findAllBranches);
+
+router.get("/getMinWages", branches.getMinimumWages)
 
 
 module.exports=router;
