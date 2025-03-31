@@ -7,9 +7,11 @@ const {
     createEmployee, 
     findOneEntitle, 
     createEntitle,
-    getSalaryHeaddb
+    getSalaryHeaddb,
+    updateSalaryHeadGradesAmountsdb,
 } = require('../repository/employeeMaster.repository');
 const moment = require("moment");
+const e = require( "express" );
 
 
 const findAllemployees = async (req, res, next) => {
@@ -214,6 +216,29 @@ const getSalaryHead=async(req,res,next)=>{
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+ 
+const updateSalaryHeadGradesAmounts= async (req, res, next)=>{
+    const { code, grade, amount } = req.body;
+    try{
+        const result= await updateSalaryHeadGradesAmountsdb(code, grade, amount);
+        console.log("result : --------------------------------------------------------"+JSON.stringify(result))
+        if(result.affectedRows>0){
+            res.status(200).json({
+                success : true,
+                Message : "grade data insirted succesfully ",
+            });
+        }else{
+                res.status(400).json({
+                    success : false,
+                    message : " Grade Data Not Save please input a valid data "
+                });
+            };
+    }catch(error){
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
 module.exports = 
 { 
     findAllemployees, 
@@ -223,5 +248,6 @@ module.exports =
     saveNewEmployee, 
     getEntitlementByEmpId, 
     saveEntitlement,
-    getSalaryHead
+    getSalaryHead,
+    updateSalaryHeadGradesAmounts
 };

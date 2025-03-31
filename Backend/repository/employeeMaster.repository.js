@@ -216,8 +216,6 @@ const createEntitle = async ( entitlements ) =>
                 const result = await executeQuery( `SELECT * FROM SalaryHeadMaster WHERE Code = '${ SalHead }'` );
                 if ( result )
                 {
-
-
                     await Entitlement.create( {
                         EmpCode,
                         sno: snoCounter++,
@@ -277,4 +275,78 @@ const getSalaryHeaddb = async ( empid ) =>
 //     }
 // };
 
-module.exports = { findAll, findOne, getAllByBranch, updateEmployee, createEmployee, findOneEntitle, createEntitle, getSalaryHeaddb };
+
+// const updateSalaryHeadGradesAmountsdb = async ( SalHead, companyCode, grade, value ) =>
+// {
+//     try
+//     {
+//         // Identify which grade column to update
+//         let gradeColumn;
+//         switch ( grade )
+//         {
+//             case 'Grade A':
+//                 gradeColumn = 'A';
+//                 break;
+//             case 'Grade B':
+//                 gradeColumn = 'B';
+//                 break;
+//             case 'Grade C':
+//                 gradeColumn = 'C';
+//                 break;
+//             case 'Grade D':
+//                 gradeColumn = 'D';
+//                 break;
+//             default:
+//                 return res.status( 400 ).json( { message: 'Invalid grade specified' } );
+//         }
+//         const valueToInsert = value.includes( '%' )
+//             ? [ parseFloat( value.replace( '%', '' ) ), 0 ]  // Save at index 0
+//             : [ 0, parseFloat( value ) ];                  // Save at index 1
+//         const query = `UPDATE SalaryHeadMaster 
+//                SET ${ gradeColumn } = '${ JSON.stringify( valueToInsert ) }'
+//                WHERE Code = '${ SalHead }' AND CompanyCode = '${ companyCode }'`;
+//         return await executeQuery( query );
+//         if ( results.affectedRows > 0 )
+//         {
+//             return res.status( 200 ).json( { message: `${ grade } updated successfully` } );
+//         } else
+//         {
+//             return res.status( 404 ).json( { message: 'Record not found' } );
+//         }
+//     } catch ( error )
+//     {
+//         console.error( 'Error updating grades:', error );
+//         return res.status( 500 ).json( { error: 'Internal server error' } );
+//     }
+// };
+
+
+const updateSalaryHeadGradesAmountsdb = async ( SalHead, grade , amount ) =>
+    {
+        try
+        { 
+            
+            const query = `UPDATE SalaryHeadMaster 
+                   SET Amount  = '${ amount }'
+                   WHERE Code = '${ SalHead }' AND Grade = '${ grade }'`;
+    
+            return await executeQuery( query );
+        } catch ( error )
+        {
+            console.error( 'Error updating grades:', error );
+            return res.status( 500 ).json( { error: 'Internal server error' } );
+        }
+    };
+
+module.exports =
+{
+    findAll,
+    findOne,
+    getAllByBranch, 
+    updateEmployee, 
+    createEmployee, 
+    findOneEntitle, 
+    createEntitle, 
+    getSalaryHeaddb, 
+    updateSalaryHeadGradesAmountsdb
+};

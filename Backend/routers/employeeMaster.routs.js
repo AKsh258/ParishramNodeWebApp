@@ -30,4 +30,7 @@ router.get("/getEntitlement/:empid", authenticateToken, em.getEntitlementByEmpId
 //rout to get salary head master to get saleryheadcode and saray head name
 router.get("/getSalaryHead", authenticateToken, em.getSalaryHead);
 
+//rout to put percantage or ammount of salaryHeaders by there grade 
+router.put('/update-grades', em.updateSalaryHeadGradesAmounts);
+
 module.exports=router;
