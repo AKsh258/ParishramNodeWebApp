@@ -1,0 +1,40 @@
+const { Sequelize, InvalidConnectionError } = require( 'sequelize' );
+const SHM = require( "../models/salaryHeadMaster.model.js" );
+const CustomError = require( "../utils/errorHandler.util.js" );
+const { executeQuery } = require( '../utils/dbhelper.util.js' );
+
+const saveUpdate = async ( code, companyCode, grade, amount ) =>
+{
+    try
+    {
+        const salhead = await SHM.findOne( { where: { Code: code, Grade: grade } } );
+
+        if (salhead){
+
+           return await SHM.update( { Amount: amount }, { where : { Code: code , Grade: grade } } );
+
+        }else{
+            const headDetails = await executeQuery( `SELECT * FROM SalaryHeadMaster WHERE Code = '${ code }'` );
+            
+             if (!headDetails) {
+                throw new Error( 'Salary Head Not Found Please Add SalaryHead First : ' + error.message );
+            }
+
+            return newHead = await SHM.create( { 
+                Code: code,
+                Head: headDetails[0].Head,
+                Description : headDetails[0].Description,
+                EarningDeduction : headDetails[0].EarningDeduction,
+                CompanyCode : companyCode,
+                Amount : amount,
+                Grade : grade
+            }); 
+        }
+
+    } catch ( error )
+    {
+        throw new Error( 'Error in saving salaryhead details : ' + error.message );
+    }
+};
+
+module.exports={ saveUpdate };

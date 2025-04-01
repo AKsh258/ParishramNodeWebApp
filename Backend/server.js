@@ -17,12 +17,14 @@ const elementRout=require("./routers/element.routs");               //element lo
 const employee=require("./routers/employeeMaster.routs")            //employee master routes
 const company= require("./routers/companyMaster.routs")             // company master routes
 const branches=require("./routers/branchMaster.routs")              // branch master routes
+const salHead =require("./routers/salaryHeadMaster.routs")
 
 app.use("/contect-us", cotectUsRout);
 app.use("/element", elementRout)
 app.use("/employee",employee)
 app.use("/company", company)
 app.use("/branches", branches)
+app.use("/salary", salHead)
 
 
 app.use(errorMiddleware);

@@ -30,16 +30,6 @@ const findAll = async ( page, pageSize ) =>
         throw new CustomError( 500, "Database error occurred during getting all data from employee master." );
     }
 };
-// const { count, rows } = await YourModel.findAndCountAll({
-//     where: {
-//       name: {
-//         [Sequelize.Op.like]: '%searchTerm%'
-//       }
-//     },
-//     limit: pageSize,
-//     offset: offset,
-//     order: [['id', 'ASC']]
-//   });
 
 const findOne = async ( empid ) =>
 {
@@ -81,7 +71,7 @@ const updateEmployee = async ( employee ) =>
     } catch ( error )
     {
         console.error( "Update failed:", error );
-        throw new Error( 'Error in updating employee: ' + error.message );
+             
     }
 };
 
@@ -325,12 +315,13 @@ const updateSalaryHeadGradesAmountsdb = async ( SalHead, grade , amount ) =>
     {
         try
         { 
-            
             const query = `UPDATE SalaryHeadMaster 
                    SET Amount  = '${ amount }'
                    WHERE Code = '${ SalHead }' AND Grade = '${ grade }'`;
     
-            return await executeQuery( query );
+            const result= await executeQuery( query );
+            console.log()
+            
         } catch ( error )
         {
             console.error( 'Error updating grades:', error );

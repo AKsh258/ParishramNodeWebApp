@@ -220,9 +220,9 @@ const getSalaryHead=async(req,res,next)=>{
 const updateSalaryHeadGradesAmounts= async (req, res, next)=>{
     const { code, grade, amount } = req.body;
     try{
-        const result= await updateSalaryHeadGradesAmountsdb(code, grade, amount);
-        console.log("result : --------------------------------------------------------"+JSON.stringify(result))
-        if(result.affectedRows>0){
+        const affectedRows= await updateSalaryHeadGradesAmountsdb(code, grade, amount);
+        console.log("result : --------------------------------------------------------")
+        if(affectedRows>0){
             res.status(200).json({
                 success : true,
                 Message : "grade data insirted succesfully ",
