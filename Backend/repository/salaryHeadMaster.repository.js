@@ -7,17 +7,17 @@ const saveUpdate = async ( code, companyCode, grade, amount ) =>
 {
     try
     {
-        const salhead = await SHM.findOne( { where: { Code: code, Grade: grade } } );
+        const salhead = await SHM.findOne( { where: { Code: code, Grade: grade, CompanyCode: companyCode } } );
 
         if (salhead){
 
-           return await SHM.update( { Amount: amount }, { where : { Code: code , Grade: grade } } );
+           return await SHM.update( { Amount: amount }, { where : { Code: code , CompanyCode: companyCode, Grade: grade } } );
 
         }else{
             const headDetails = await executeQuery( `SELECT * FROM SalaryHeadMaster WHERE Code = '${ code }'` );
             
-             if (!headDetails) {
-                throw new Error( 'Salary Head Not Found Please Add SalaryHead First : ' + error.message );
+             if (!headDetails || headDetails.length === 0) {
+                return " Salary head not found !   please send a valid salary Head ";
             }
 
             return newHead = await SHM.create( { 

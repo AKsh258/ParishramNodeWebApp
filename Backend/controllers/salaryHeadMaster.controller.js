@@ -15,7 +15,13 @@ const saveSalaryHeadAmoutGrade = async ( req, res, next ) =>
                 success: true,
                 message: 'salary head details Updated successfully ',
             } )
-
+        } else if ( result === " Salary head not found !   please send a valid salary Head ")
+        {
+            res.status( 402 ).json( {
+                success: false,
+                message: ' Pelease select a valid salary head  ',
+                data: result
+            } )
         } else if ( result )
         {
             res.status( 200 ).json( {
@@ -23,7 +29,6 @@ const saveSalaryHeadAmoutGrade = async ( req, res, next ) =>
                 message: 'salary head details saved successfully ',
                 data: result
             } )
-
         } else
         {
             res.status( 400 ).json( {
