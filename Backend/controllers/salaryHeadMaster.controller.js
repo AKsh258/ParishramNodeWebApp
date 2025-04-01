@@ -1,5 +1,5 @@
 const CustomError = require( "../utils/errorHandler.util.js" );
-const { saveUpdate } = require( '../repository/salaryHeadMaster.repository.js' );
+const { saveUpdate, findSalaryByGrade } = require( '../repository/salaryHeadMaster.repository.js' );
 
 const saveSalaryHeadAmoutGrade = async ( req, res, next ) =>
 {
@@ -43,6 +43,39 @@ const saveSalaryHeadAmoutGrade = async ( req, res, next ) =>
     }
 };
 
+const getSalaryAmount = async (req, res, next )=>{
+
+    try {
+        const { companyCode, grade } = req.body;
+
+        if (!companyCode || !grade ) {
+            
+            return res.status(400).json({ success: false, message: 'Company Code And Grade are required !' });
+        }
+
+        const result = await findSalaryByGrade( companyCode, grade );
+
+        if (result.length>0) {
+            return res.status(200).json({
+                success: true,
+                message: 'Employee entitlement found successfully',
+                data: result
+            });
+        } else {
+            return res.status(404).json({
+                success: false,
+                message: 'Employee entitlement not found use a diffrent employee id '
+            });
+        }
+    } catch (error) {
+        console.error('Error in fetching salaryHead Amount by Grade:', error.message);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+
+}
+
+
 module.exports = {
-    saveSalaryHeadAmoutGrade
+    saveSalaryHeadAmoutGrade,
+    getSalaryAmount
 }

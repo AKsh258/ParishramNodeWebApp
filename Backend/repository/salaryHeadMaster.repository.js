@@ -9,26 +9,29 @@ const saveUpdate = async ( code, companyCode, grade, amount ) =>
     {
         const salhead = await SHM.findOne( { where: { Code: code, Grade: grade, CompanyCode: companyCode } } );
 
-        if (salhead){
+        if ( salhead )
+        {
 
-           return await SHM.update( { Amount: amount }, { where : { Code: code , CompanyCode: companyCode, Grade: grade } } );
+            return await SHM.update( { Amount: amount }, { where: { Code: code, CompanyCode: companyCode, Grade: grade } } );
 
-        }else{
+        } else
+        {
             const headDetails = await executeQuery( `SELECT * FROM SalaryHeadMaster WHERE Code = '${ code }'` );
-            
-             if (!headDetails || headDetails.length === 0) {
+
+            if ( !headDetails || headDetails.length === 0 )
+            {
                 return " Salary head not found !   please send a valid salary Head ";
             }
 
-            return newHead = await SHM.create( { 
+            return newHead = await SHM.create( {
                 Code: code,
-                Head: headDetails[0].Head,
-                Description : headDetails[0].Description,
-                EarningDeduction : headDetails[0].EarningDeduction,
-                CompanyCode : companyCode,
-                Amount : amount,
-                Grade : grade
-            }); 
+                Head: headDetails[ 0 ].Head,
+                Description: headDetails[ 0 ].Description,
+                EarningDeduction: headDetails[ 0 ].EarningDeduction,
+                CompanyCode: companyCode,
+                Amount: amount,
+                Grade: grade
+            } );
         }
 
     } catch ( error )
@@ -37,4 +40,19 @@ const saveUpdate = async ( code, companyCode, grade, amount ) =>
     }
 };
 
-module.exports={ saveUpdate };
+const findSalaryByGrade = async ( companyCode, grade ) =>
+{
+    try
+    {
+        return await SHM.findAll( { where: { CompanyCode: companyCode, Grade: grade } } );
+
+    } catch ( error )
+    {
+        throw new Error( 'Error in fetching Salary by Grade : ' + error.message );
+    }
+};
+
+module.exports = {
+    saveUpdate,
+    findSalaryByGrade,
+};
