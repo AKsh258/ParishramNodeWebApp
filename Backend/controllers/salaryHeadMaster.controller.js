@@ -1,5 +1,6 @@
 const CustomError = require( "../utils/errorHandler.util.js" );
-const { saveUpdate, findSalaryByGrade } = require( '../repository/salaryHeadMaster.repository.js' );
+const { saveUpdate, findSalaryByGrade, setReimbursmentdb } = require( '../repository/salaryHeadMaster.repository.js' );
+const { response } = require( "express" );
 
 const saveSalaryHeadAmoutGrade = async ( req, res, next ) =>
 {
@@ -74,8 +75,38 @@ const getSalaryAmount = async (req, res, next )=>{
 
 }
 
+const setReimbursment = async ( req, res, next )=>{
+
+    try{
+
+        const { empCode, reimbursmentType, EntitlementAmount, SNo } = req.body;
+
+        const result =  await setReimbursmentdb( empCode, reimbursmentType, EntitlementAmount, SNo );
+
+        if ( result ){
+
+            response.status(200).json({
+                success : true,
+                message : "Reimbursement saved successfully ",
+                data : result
+            })
+        }else{
+            res.status(400).json({
+                success : false,
+                message : " Failed to saving Reimbursement "
+            })
+        }
+
+    }catch(error){
+
+        console.error('Error in saving reimbursement :', error.message);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+
+    }
+}
 
 module.exports = {
     saveSalaryHeadAmoutGrade,
-    getSalaryAmount
+    getSalaryAmount,
+    setReimbursment
 }

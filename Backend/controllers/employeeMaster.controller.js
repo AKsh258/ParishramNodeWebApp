@@ -221,7 +221,6 @@ const updateSalaryHeadGradesAmounts= async (req, res, next)=>{
     const { code, grade, amount } = req.body;
     try{
         const affectedRows= await updateSalaryHeadGradesAmountsdb(code, grade, amount);
-        console.log("result : --------------------------------------------------------")
         if(affectedRows>0){
             res.status(200).json({
                 success : true,

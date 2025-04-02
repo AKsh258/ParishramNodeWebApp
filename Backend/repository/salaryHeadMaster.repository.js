@@ -1,5 +1,6 @@
 const { Sequelize, InvalidConnectionError } = require( 'sequelize' );
 const SHM = require( "../models/salaryHeadMaster.model.js" );
+const empRemburs =  require("../models/employeeReimbursement.model.js")
 const CustomError = require( "../utils/errorHandler.util.js" );
 const { executeQuery } = require( '../utils/dbhelper.util.js' );
 
@@ -52,7 +53,37 @@ const findSalaryByGrade = async ( companyCode, grade ) =>
     }
 };
 
+const setReimbursmentdb = async ( empCode, reimbursmentType, EntitlementAmount, SNo )=>{
+
+    try{
+
+        const result1= await empRemburs.findAll( { where : { EmpCode : empCode, ReimbursmentType : reimbursmentType } } );
+
+        if(result1.length>0){
+
+            return await empRemburs.update( { EntitlementAmount : EntitlementAmount , IsEntitle : true  }, { Where : { EmpCode : empCode, ReimbursmentType : reimbursmentType }})
+        }
+
+        //add increment  function add serial no. 
+
+        const result = await empRemburs.create({
+            EmpCode : empCode, 
+            ReimbursmentType : reimbursmentType,
+            IsEntitle : false,
+            EntitlementAmount : EntitlementAmount,
+            SNo : 1
+        })
+
+
+    }catch(error){
+
+        throw new Error( 'Error in saving Salary by Grade : ' + error.message );
+
+    }
+}
+
 module.exports = {
     saveUpdate,
     findSalaryByGrade,
+    setReimbursmentdb
 };
