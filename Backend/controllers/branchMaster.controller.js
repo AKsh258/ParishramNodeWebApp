@@ -5,12 +5,12 @@ const { findAll,getMinimumWagesByBranch } = require("../repository/branchMaster.
 const findAllBranches = async (req, res, next) => {
     const companyCode=req.body.CompanyCode;
     try {
-        const branches = await getAll(companyCode);
+        const branches = await findAll(companyCode);
         res.status(200).json({
             success: true,
             message: "All branches retrieved successfully",
             data: branches
-        });
+        }); 
     } catch (error) {
         console.error("Error retrieving branches:", error);
         res.status(500).json({
