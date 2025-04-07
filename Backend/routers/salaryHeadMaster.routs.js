@@ -22,5 +22,6 @@ router.get("/getSalaryHead", SalaryHeadM.getSalaryHead);
 //rout to put percantage or ammount of salaryHeaders by there grade 
 router.put('/update-grades', SalaryHeadM.updateSalaryHeadGradesAmounts);
 
+router.get('/getProfessionalTaxLocationWise', SalaryHeadM.getLocationsOfProfessionalTax);
 
 module.exports = router;    

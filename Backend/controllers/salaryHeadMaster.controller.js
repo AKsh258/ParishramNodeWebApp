@@ -1,5 +1,6 @@
 const CustomError = require( "../utils/errorHandler.util.js" );
 const { 
+
     saveUpdate, 
     findSalaryByGrade, 
     getMinimumWagesByBranch, 
@@ -8,7 +9,11 @@ const {
     createEntitle,
     getSalaryHeaddb,
     updateSalaryHeadGradesAmountsdb,
+    getLocationsOfProfessionalTaxdb,
+    getProfessionalTaxByLocationdb
+
 } = require( '../repository/salaryHeadMaster.repository.js' );
+
 const { response } = require( "express" );
 
 const saveSalaryHeadAmoutGrade = async ( req, res, next ) =>
@@ -248,6 +253,30 @@ const updateSalaryHeadGradesAmounts= async (req, res, next)=>{
     }
 }
 
+const getLocationsOfProfessionalTax = async (req, res, next) => {
+    try {
+
+        const result = await getLocationsOfProfessionalTaxdb();
+
+        if (result.length > 0) {
+            return res.status(200).json({
+                success: true,
+                message: 'Locations of Professional Tax found successfully',
+                data: result
+            });
+        } else {
+            return res.status(404).json({
+                success: false,
+                message: 'Locations of Professional Tax not found'
+            });
+        }
+    } catch (error) {
+        console.error('Error in fetching Locations of Professional Tax:', error.message);
+        res.status(500).json({ success: false, message: 'Internal server error' });
+    }
+}
+
+
 module.exports = {
     saveSalaryHeadAmoutGrade,
     getSalaryAmount,
@@ -256,5 +285,6 @@ module.exports = {
     getEntitlementByEmpId, 
     saveEntitlement,
     getSalaryHead,
-    updateSalaryHeadGradesAmounts
+    updateSalaryHeadGradesAmounts,
+    getLocationsOfProfessionalTax,
 }

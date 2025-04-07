@@ -2,6 +2,7 @@ const { Sequelize, InvalidConnectionError } = require( 'sequelize' );
 const SHM = require( "../models/salaryHeadMaster.model.js" );
 const empRemburs =  require("../models/employeeReimbursement.model.js")
 const Entitlement = require( "../models/employeeEntitlement.model.js" );
+const ProfessionalTaxMaster = require( "../models/professionalTaxMaster.model.js" );
 const CustomError = require( "../utils/errorHandler.util.js" );
 const { executeQuery } = require( '../utils/dbhelper.util.js' );
 
@@ -316,8 +317,21 @@ const findOneEntitle = async ( empid ) =>
             }
         };
     
+const getLocationsOfProfessionalTaxdb = async (  ) =>
+    {
+        try
+        {
+            return await ProfessionalTaxMaster.findAll();
+            
+        } catch ( error )
+        {
+            console.error( 'Error fetching locations:', error );
+            throw new CustomError( 'Error fetching locations', 500 );
+        }
+    }
 
 module.exports = {
+    
     saveUpdate,
     findSalaryByGrade,
     getMinimumWagesByBranch,
@@ -325,5 +339,7 @@ module.exports = {
     findOneEntitle, 
     createEntitle, 
     getSalaryHeaddb, 
-    updateSalaryHeadGradesAmountsdb
+    updateSalaryHeadGradesAmountsdb,
+    getLocationsOfProfessionalTaxdb
+
 };
