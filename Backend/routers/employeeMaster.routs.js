@@ -19,18 +19,4 @@ router.post("/Update", em.saveEmployee);
 router.post("/register", authenticateToken, em.saveNewEmployee);
 
 
-//salary related routs 
-
-//rout to save entitle of an employee save into employeeentitlement, view_employeesalarydetailsrep , view_employeeentitlement and employeemaster table 
-router.post("/saveEntitle", authenticateToken, em.saveEntitlement);
-
-//rout to get employee entitlement by empid 
-router.get("/getEntitlement/:empid", authenticateToken, em.getEntitlementByEmpId);
-
-//rout to get salary head master to get saleryheadcode and saray head name
-router.get("/getSalaryHead", authenticateToken, em.getSalaryHead);
-
-//rout to put percantage or ammount of salaryHeaders by there grade 
-router.put('/update-grades', em.updateSalaryHeadGradesAmounts);
-
 module.exports=router;

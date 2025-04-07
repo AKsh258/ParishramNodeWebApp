@@ -1,5 +1,4 @@
-const branchMaster=require("../models/branchMaster.model")
-const { executeQuery } = require( '../utils/dbhelper.util.js' );
+const branchMaster=require("../models/branchMaster.model");
 
 const findAll = async (companyCode) => {
     try {
@@ -12,12 +11,4 @@ const findAll = async (companyCode) => {
     }
 };
 
-const getMinimumWagesByBranch = async (branchCode) => {
-    try {
-        return await executeQuery( `SELECT * FROM BranchesMinimumWages WHERE BranchCode = '${ branchCode }'` );
-    } catch (error) {
-        throw new Error('Error fetching MinimumWages : ' + error.message);
-    }
-};
-
-module.exports = { findAll, getMinimumWagesByBranch };
+module.exports = { findAll };

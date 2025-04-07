@@ -1,16 +1,23 @@
 const express=require("express")
-const { findAll,getMinimumWagesByBranch } = require("../repository/branchMaster.repository")
+const { findAll } = require("../repository/branchMaster.repository")
 
 
 const findAllBranches = async (req, res, next) => {
     const companyCode=req.body.CompanyCode;
     try {
         const branches = await findAll(companyCode);
-        res.status(200).json({
-            success: true,
-            message: "All branches retrieved successfully",
-            data: branches
-        }); 
+        if(branches.length>0){
+            res.status(200).json({
+                success: true,
+                message: "All branches retrieved successfully ",
+                data: branches
+            });
+        }else{
+            res.status(400).json({
+                success: true,
+                message: " There is no company with this company code please select a valid company !"
+            });
+        }  
     } catch (error) {
         console.error("Error retrieving branches:", error);
         res.status(500).json({
@@ -67,23 +74,5 @@ const findAllBranches = async (req, res, next) => {
 //         });
 //     }
 // };
-const getMinimumWages =async(req,res,next)=>{
-    const branchCode=req.body.branchCode;
-    try {
-        const Wages = await getMinimumWagesByBranch(branchCode);
-        res.status(200).json({
-            success: true,
-            message: "Minimum Wages retrieved successfully",
-            data: Wages
-        });
-    } catch (error) {
-        console.error("Error retrieving Minimum Wages:", error);
-        res.status(500).json({
-            success: false,
-            message: "Failed to retrieve Minimum wages !",
-            error: error.message
-        });
-    }
 
-}
-module.exports={findAllBranches, getMinimumWages}
+module.exports={ findAllBranches  }

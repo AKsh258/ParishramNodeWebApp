@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const element = require('../config/db'); 
+const { element } = require('../config/db'); 
 
 const EmployeeReimbursement = element.define('EmployeeReimbursement', {
     EmpCode: {

@@ -4,7 +4,5 @@ const branches =require("../controllers/branchMaster.controller");
 
 router.post("/", branches.findAllBranches);
 
-router.get("/getMinWages", branches.getMinimumWages)
-
 
 module.exports=router;
