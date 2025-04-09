@@ -4,7 +4,7 @@ const SalaryHeadM = require( '../controllers/salaryHeadMaster.controller' );
 
 router.post( "/salHead/setGradeAmount", SalaryHeadM.saveSalaryHeadAmoutGrade );
 
-router.post("/getSalary", SalaryHeadM.getSalaryAmount);
+router.post("/getSalHead/GradeAmount", SalaryHeadM.getSalaryAmount);
 
 router.get("/getMinWages", SalaryHeadM.getMinimumWages);
 
@@ -19,9 +19,6 @@ router.get("/getEntitlement/:empid", SalaryHeadM.getEntitlementByEmpId);
 //rout to get salary head master to get saleryheadcode and saray head name
 router.get("/getSalaryHead", SalaryHeadM.getSalaryHead);
 
-//rout to put percantage or ammount of salaryHeaders by there grade 
-router.put('/update-grades', SalaryHeadM.updateSalaryHeadGradesAmounts);
-
-router.get('/getProfessionalTaxLocationWise', SalaryHeadM.getLocationsOfProfessionalTax);
+router.get('/professionalTax/AllLocations', SalaryHeadM.getLocationsOfProfessionalTax);
 
 module.exports = router;    

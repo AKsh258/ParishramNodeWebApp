@@ -14,17 +14,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const errorMiddleware = require("./middleware/error.middleware");
 const cotectUsRout=require("./routers/contectUs.routs");            // contect need to change database and it's functionality
 const elementRout=require("./routers/element.routs");               //element login or user mastern routes
-const employee=require("./routers/employeeMaster.routs")            //employee master routes
-const company= require("./routers/companyMaster.routs")             // company master routes
-const branches=require("./routers/branchMaster.routs")              // branch master routes
-const salHead =require("./routers/salaryHeadMaster.routs")
+const employee=require("./routers/employeeMaster.routs");          //employee master routes
+const company= require("./routers/companyMaster.routs");             // company master routes
+const branches=require("./routers/branchMaster.routs");             // branch master routes
+const salHead =require("./routers/salaryHeadMaster.routs");
+const email = require("./routers/email.routs");                 // email routes
 
-app.use("/contect-us", cotectUsRout);
-app.use("/element", elementRout)
-app.use("/employee",employee)
-app.use("/company", company)
-app.use("/branches", branches)
-app.use("/salary", salHead)
+app.use("/contact", cotectUsRout);
+app.use("/element", elementRout);
+app.use("/employee",employee);
+app.use("/company", company);
+app.use("/branch", branches);
+app.use("/salary", salHead);
+app.use("/email", email);
+
 
 
 app.use(errorMiddleware);

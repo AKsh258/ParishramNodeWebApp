@@ -10,13 +10,13 @@ router.get("/getAll", em.findAllemployees );
 router.get("/get/:id", em.getEmployeeById);
 
 //rout to get employee of a sapret branch   http://localhost:4000/employee/branch/BR00002
-router.get("/branch/:branchCode", em.getAllEmployeeFromBranch);
+router.get("/employeesFromBranch/:branchCode", em.getAllEmployeeFromBranch);
 
 //rout to update employee       http://localhost:4000/employee/update
 router.post("/Update", em.saveEmployee);
 
 //rout to register New Employee     http://localhost:4000/employee/register
-router.post("/register", authenticateToken, em.saveNewEmployee);
+router.post("/register", em.saveNewEmployee);
 
 
 module.exports=router;

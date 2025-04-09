@@ -61,15 +61,17 @@ const getAllByBranch = async ( branchCode ) =>
 };
 const updateEmployee = async ( employee ) =>
 {
-    console.log( "Employee to update:", employee );
+
     const empid = employee.EmpID;
 
     try
     {
         return await employeeMaster.update( employee, { where: { EmpID: empid } } );
+        
     } catch ( error )
     {
         console.error( "Update failed:", error );
+        throw new Error( ' ! error in Upadting employee : ' + error.message );
              
     }
 };

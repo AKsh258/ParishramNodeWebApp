@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const { commonSecuelize }  = require('../config/db');
 
 const ContactUs = commonSecuelize.define('ContactUs', {
+    
     name: {
         type: DataTypes.STRING,
         allowNull: false,

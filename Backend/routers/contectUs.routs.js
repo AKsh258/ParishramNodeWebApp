@@ -1,9 +1,9 @@
 const express=require('express');
 const router=express.Router();
-const contectUscontroller=require("../controllers/contectUs.controller")
+const contectUs=require("../controllers/contectUs.controller")
 
-router.get("/", contectUscontroller.getAll);
+router.get("/getAllRequestToContact", contectUs.getAllContact);
 
-router.post("/", contectUscontroller.save);
+router.post("/requestToContact", contectUs.saveContact);
 
 module.exports=router;

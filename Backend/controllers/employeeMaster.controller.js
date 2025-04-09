@@ -84,18 +84,33 @@ const saveEmployee = async (req, res, next) => {
     try {
         const employee = req.body;
 
-        const employeedetail = await updateEmployee(employee);
-        if (employeedetail > 0) {
-            res.status(200).json({
-                success: true,
-                message: " Employee Detail Updated Succesfully ",
-            });
-        } else {
-            res.status(401).json({
+        const emp= await findOne(employee.EmpID);
+
+        if (!emp) {
+
+            return res.status(404).json({
                 success: false,
-                message: " employee not saved !  ",
+                message: " employee not found by this id please Register First ",
             })
+            
+        }else{
+
+            const employeedetail = await updateEmployee(employee);
+    
+            if (employeedetail > 0) {
+                res.status(200).json({
+                    success: true,
+                    message: " Employee Detail Updated Succesfully ",
+                });
+            } else {
+                res.status(401).json({
+                    success: false,
+                    message: " employee not saved !  ",
+                })
+            }
+
         }
+
     } catch (error) {
         console.error('Error:', error);
         res.status(500).json({ error: 'Internal server error ' });

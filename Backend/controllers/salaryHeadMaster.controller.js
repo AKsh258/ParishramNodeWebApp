@@ -8,9 +8,8 @@ const {
     findOneEntitle, 
     createEntitle,
     getSalaryHeaddb,
-    updateSalaryHeadGradesAmountsdb,
-    getLocationsOfProfessionalTaxdb,
-    getProfessionalTaxByLocationdb
+   // updateSalaryHeadGradesAmountsdb,
+    getLocationsOfProfessionalTaxdb
 
 } = require( '../repository/salaryHeadMaster.repository.js' );
 
@@ -180,7 +179,7 @@ const saveEntitlement = async (req, res) => {
         if (!Array.isArray(entitlements) || entitlements.length === 0) {
             return res.status(400).json({
                 success: false,
-                message: 'Invalid or empty data',
+                message: ' Invalid or empty data provided for entitlement ',
             });
         }
 
@@ -232,26 +231,26 @@ const getSalaryHead=async(req,res,next)=>{
     }
 }
  
-const updateSalaryHeadGradesAmounts= async (req, res, next)=>{
-    const { code, grade, amount } = req.body;
-    try{
-        const affectedRows= await updateSalaryHeadGradesAmountsdb(code, grade, amount);
-        if(affectedRows>0){
-            res.status(200).json({
-                success : true,
-                Message : "grade data insirted succesfully ",
-            });
-        }else{
-                res.status(400).json({
-                    success : false,
-                    message : " Grade Data Not Save please input a valid data "
-                });
-            };
-    }catch(error){
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-}
+// const updateSalaryHeadGradesAmounts= async (req, res, next)=>{
+//     const { code, grade, amount } = req.body;
+//     try{
+//         const affectedRows= await updateSalaryHeadGradesAmountsdb(code, grade, amount);
+//         if(affectedRows>0){
+//             res.status(200).json({
+//                 success : true,
+//                 Message : "grade data insirted succesfully ",
+//             });
+//         }else{
+//                 res.status(400).json({
+//                     success : false,
+//                     message : " Grade Data Not Save please input a valid data "
+//                 });
+//             };
+//     }catch(error){
+//         console.error('Error:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// }
 
 const getLocationsOfProfessionalTax = async (req, res, next) => {
     try {
@@ -285,6 +284,6 @@ module.exports = {
     getEntitlementByEmpId, 
     saveEntitlement,
     getSalaryHead,
-    updateSalaryHeadGradesAmounts,
+  //  updateSalaryHeadGradesAmounts,
     getLocationsOfProfessionalTax,
 }

@@ -7,10 +7,14 @@ const getAll = async () => {
         throw new Error('Error fetching contects: ' + error.message);
     }
 };
-const save = async (productData) => {
+const save = async ( contectData) => {
+
     try {
-        return await contectUs.create(productData);
+
+        return await contectUs.create( contectData );
+
     } catch (error) {
+
         throw new Error('Error saving product: ' + error.message);
     }
 };

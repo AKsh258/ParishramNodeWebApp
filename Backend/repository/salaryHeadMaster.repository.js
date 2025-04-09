@@ -1,6 +1,6 @@
 const { Sequelize, InvalidConnectionError } = require( 'sequelize' );
 const SHM = require( "../models/salaryHeadMaster.model.js" );
-const empRemburs =  require("../models/employeeReimbursement.model.js")
+const empRemburs =  require( "../models/employeeReimbursement.model.js" );
 const Entitlement = require( "../models/employeeEntitlement.model.js" );
 const ProfessionalTaxMaster = require( "../models/professionalTaxMaster.model.js" );
 const CustomError = require( "../utils/errorHandler.util.js" );
@@ -8,15 +8,15 @@ const { executeQuery } = require( '../utils/dbhelper.util.js' );
 
 const saveUpdate = async ( code, companyCode, grade, amount ) =>
 {
+
     try
     {
         const salhead = await SHM.findOne( { where: { Code: code, Grade: grade, CompanyCode: companyCode } } );
 
         if ( salhead )
         {
-
-            return await SHM.update( { Amount: amount }, { where: { Code: code, CompanyCode: companyCode, Grade: grade } } );
-
+            const result = await SHM.update( { Amount: amount }, { where: { Code: code, CompanyCode: companyCode, Grade: grade } } );
+            return result[ 0 ] === 1 ? 1 : false;
         } else
         {
             const headDetails = await executeQuery( `SELECT * FROM SalaryHeadMaster WHERE Code = '${ code }'` );
@@ -104,6 +104,7 @@ const findOneEntitle = async ( empid ) =>
         const result = await executeQuery( query );
     
         console.log( `Entitlement length: ${ result.length }` );
+        
         return result;
     
     };
@@ -233,9 +234,9 @@ const findOneEntitle = async ( empid ) =>
                     }
                 }
             }
-    
-            // Return the consolidated results
+
             return results;
+
         } catch ( error )
         {
             console.error( "Error saving/updating entitlements:", error );
@@ -299,23 +300,23 @@ const findOneEntitle = async ( empid ) =>
     // };
     
     
-    const updateSalaryHeadGradesAmountsdb = async ( SalHead, grade , amount ) =>
-        {
-            try
-            { 
-                const query = `UPDATE SalaryHeadMaster 
-                       SET Amount  = '${ amount }'
-                       WHERE Code = '${ SalHead }' AND Grade = '${ grade }'`;
+    // const updateSalaryHeadGradesAmountsdb = async ( SalHead, grade , amount ) =>
+    //     {
+    //         try
+    //         { 
+    //             const query = `UPDATE SalaryHeadMaster 
+    //                    SET Amount  = '${ amount }'
+    //                    WHERE Code = '${ SalHead }' AND Grade = '${ grade }'`;
         
-                const result= await executeQuery( query );
-                console.log(result)
+    //             const result= await executeQuery( query );
+    //             console.log(result)
                 
-            } catch ( error )
-            {
-                console.error( 'Error updating grades:', error );
-                return res.status( 500 ).json( { error: 'Internal server error' } );
-            }
-        };
+    //         } catch ( error )
+    //         {
+    //             console.error( 'Error updating grades:', error );
+    //             return res.status( 500 ).json( { error: 'Internal server error' } );
+    //         }
+    //     };
     
 const getLocationsOfProfessionalTaxdb = async (  ) =>
     {
@@ -339,7 +340,7 @@ module.exports = {
     findOneEntitle, 
     createEntitle, 
     getSalaryHeaddb, 
-    updateSalaryHeadGradesAmountsdb,
+   // updateSalaryHeadGradesAmountsdb,
     getLocationsOfProfessionalTaxdb
 
 };
