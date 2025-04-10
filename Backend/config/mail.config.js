@@ -16,20 +16,18 @@ const transporter = nodemiler.createTransport( {
     }
 } );
 
-const sendMail = async ( to, subject, name, empid, onboardingLink ) =>
+const sendMail = async ( to, name, empid ) =>
 {
-    // console.log( "Sending email to-------------------------:", to );
-    // console.log( "Subject-------------------------:", subject );
-    // console.log( "Message-------------------------:", message );    
+    const subject = 'Parishram Onboarding Success';  
     const html = `
     <p>Parishram onboarding success. PFA the onboarding link</p>
     <p><b>Dear ${ name }</b>,</p>
     <p>Welcome to Parishram Resources...</p>
     <p>Download Letter of Intent: 
-      <a href="https://pess.co.in/PrintmobileOfferLetter.aspx?EmpCode=${ empid }">Click here</a>
+      <a href="https://pess.co.in/lkkjgkdfuhjlhfdsfferLetter.aspx?EmpCode=${ empid }">Click here</a>
     </p>
     <p>Onboarding link: 
-      <a href="${ onboardingLink }">Open Link</a>
+      <a href="https://pess.co.in/PrijjkhjodhlkhlkhldfhshOfferLetter.aspx?EmpCode=${ empid }">Open Link</a>
     </p>
     <p>Support Team:<br/>
       Mr. Saurabh Chauhan - 98838989389, Email: saurabhkjkml.com<br/>
