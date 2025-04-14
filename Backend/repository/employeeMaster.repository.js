@@ -87,6 +87,26 @@ const createEmployee = async ( employee ) =>
         throw new Error( ' ! error in saving employee : ' + error.message );
     }
 };
+const createNewEMPid = async ( ) =>
+{
+    try
+    {
+        const result = await employeeMaster.findOne({
+            attributes: ['EmpId'],
+            where: {
+              EmpId: {
+                [Op.like]: 'EMP%'
+              }
+            },
+            order: [['EmpId', 'DESC']]
+          });    
+          return result ? result.dataValues.EmpId : false;
+    } catch ( error )
+    {
+        console.error( "Error in getiing Last employee EMP ID:", error );
+        throw new CustomError( 500, "Database error occurred during getiing Last employee EMP ID." );
+    }
+};
 module.exports =
 {
     findAll,
@@ -94,5 +114,5 @@ module.exports =
     getAllByBranch, 
     updateEmployee, 
     createEmployee, 
-    
+    createNewEMPid
 };

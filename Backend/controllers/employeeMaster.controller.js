@@ -5,6 +5,7 @@ const {
     getAllByBranch, 
     updateEmployee, 
     createEmployee, 
+    createNewEMPid,
 } = require('../repository/employeeMaster.repository');
 const moment = require("moment");
 const e = require( "express" );
@@ -139,6 +140,28 @@ const saveNewEmployee = async (req, res, next) => {
         res.status(500).json({ error: 'Internal server error ' });
     }
 }
+const lastEMPid = async (req, res, next) => {
+    try {
+        const empid = req.query.empid;
+        const newEMPid = await createNewEMPid(empid);
+
+        if (newEMPid) {
+            res.status(200).json({
+                success: true,
+                message: " This is Last Employee EMP ID",
+                data: newEMPid
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " Last Employee EMP ID not found please refresh the curent page ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
 
 module.exports = 
 { 
@@ -147,4 +170,5 @@ module.exports =
     getAllEmployeeFromBranch, 
     saveEmployee, 
     saveNewEmployee, 
+    lastEMPid,
 };

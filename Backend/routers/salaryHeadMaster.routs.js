@@ -21,4 +21,7 @@ router.get("/getSalaryHead", SalaryHeadM.getSalaryHead);
 
 router.get('/professionalTax/AllLocations', SalaryHeadM.getLocationsOfProfessionalTax);
 
+//rout to save GL Details into EmployeeGlDetails table
+router.post('/saveGLDetails', SalaryHeadM.saveGLDetails);
+
 module.exports = router;    
