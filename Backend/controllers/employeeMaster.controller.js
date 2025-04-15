@@ -6,6 +6,9 @@ const {
     updateEmployee, 
     createEmployee, 
     createNewEMPid,
+    RMofBranch,
+    createNewHLid
+
 } = require('../repository/employeeMaster.repository');
 const moment = require("moment");
 const e = require( "express" );
@@ -81,6 +84,31 @@ const getAllEmployeeFromBranch = async (req, res, next) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+const getAllRM = async (req, res, next) => {
+    try {
+        const branchCode = req.params.branchCode;
+        const rm = await RMofBranch( branchCode );
+        if (rm) {
+            res.status(200).json({
+                success: true,
+                message: " All RM found successfully of " + branchCode + " branch",
+                data: rm
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " employee not found by branch",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+
+
 const saveEmployee = async (req, res, next) => {
     try {
         const employee = req.body;
@@ -97,8 +125,9 @@ const saveEmployee = async (req, res, next) => {
         }else{
 
             const employeedetail = await updateEmployee(employee);
+            console.log("employeedetail =-====================================-=", employeedetail[0]);
     
-            if (employeedetail > 0) {
+            if (employeedetail[0] > 0) {
                 res.status(200).json({
                     success: true,
                     message: " Employee Detail Updated Succesfully ",
@@ -142,8 +171,7 @@ const saveNewEmployee = async (req, res, next) => {
 }
 const lastEMPid = async (req, res, next) => {
     try {
-        const empid = req.query.empid;
-        const newEMPid = await createNewEMPid(empid);
+        const newEMPid = await createNewEMPid();
 
         if (newEMPid) {
             res.status(200).json({
@@ -162,13 +190,38 @@ const lastEMPid = async (req, res, next) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+const lastHLid = async (req, res, next) => {
+    try {
+
+        const newHLid = await createNewHLid();
+
+        if (newHLid) {
+            res.status(200).json({
+                success: true,
+                message: " This is Last Employee HL ID",
+                data: newHLid
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " Last Employee HL ID not found please refresh the curent page ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+
+}
 
 module.exports = 
 { 
     findAllemployees, 
     getEmployeeById, 
-    getAllEmployeeFromBranch, 
+    getAllEmployeeFromBranch,
+    getAllRM, 
     saveEmployee, 
     saveNewEmployee, 
     lastEMPid,
+    lastHLid,
 };

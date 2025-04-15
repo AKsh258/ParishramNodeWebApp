@@ -59,6 +59,27 @@ const getAllByBranch = async ( branchCode ) =>
         throw new Error( 'Error in fetching employee by branch: ' + error.message );
     }
 };
+const RMofBranch = async ( branchCode ) =>
+{
+    try
+    {
+        const rms = await employeeMaster.findAll( {
+            where: {
+                branchCode: branchCode,
+                [ Op.and ]: [
+                    Sequelize.literal( "ISNULL(IsBilled, 0) = 0" ),
+                    Sequelize.literal( "ISNULL(hasLeft, 0) = 0" )
+                ]
+            },
+            order: [ [ 'EmpId1', 'ASC' ] ]
+        } );
+        return rms;
+    } catch ( error )
+    {
+        throw new Error( 'Error in fetching employee by branch: ' + error.message );
+    }
+};
+
 const updateEmployee = async ( employee ) =>
 {
 
@@ -107,12 +128,29 @@ const createNewEMPid = async ( ) =>
         throw new CustomError( 500, "Database error occurred during getiing Last employee EMP ID." );
     }
 };
+
+const createNewHLid = async ( ) =>     {
+    try
+    {
+        const result = await executeQuery( "SELECT CONCAT(prefix, LastValue) AS NewEmployeeCode FROM sequencemaster WHERE head = 'Employee';" );
+
+        return result ? result[0].NewEmployeeCode : null;
+
+    } catch ( error )
+    {
+        console.error( "Error in getiing Last employee HL ID:", error );
+        throw new CustomError( 500, "Database error occurred during getiing Last employee HL ID." );
+    }
+}
+
 module.exports =
 {
     findAll,
     findOne,
-    getAllByBranch, 
+    getAllByBranch,
+    RMofBranch,
     updateEmployee, 
     createEmployee, 
-    createNewEMPid
+    createNewEMPid,
+    createNewHLid,
 };

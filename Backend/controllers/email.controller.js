@@ -27,7 +27,7 @@ const onboardingSuccessMail = async ( req, res ) =>
             } );
         }
 
-        const result = await sendMail(  to, name, empid );
+        const result = await sendMail(  to, employee );
 
         if (result.accepted && result.accepted.length > 0) {
             console.log("Email sent successfully to:", result.accepted);
