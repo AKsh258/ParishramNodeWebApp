@@ -7,7 +7,8 @@ const {
     createEmployee, 
     createNewEMPid,
     RMofBranch,
-    createNewHLid
+    createNewHLid,
+    validateEmployeeDetails,
 
 } = require('../repository/employeeMaster.repository');
 const moment = require("moment");
@@ -117,7 +118,7 @@ const saveEmployee = async (req, res, next) => {
 
         if (!emp) {
 
-            return res.status(404).json({
+            res.status(404).json({
                 success: false,
                 message: " employee not found by this id please Register First ",
             })
@@ -125,7 +126,6 @@ const saveEmployee = async (req, res, next) => {
         }else{
 
             const employeedetail = await updateEmployee(employee);
-            console.log("employeedetail =-====================================-=", employeedetail[0]);
     
             if (employeedetail[0] > 0) {
                 res.status(200).json({
@@ -146,29 +146,88 @@ const saveEmployee = async (req, res, next) => {
         res.status(500).json({ error: 'Internal server error ' });
     }
 }
-const saveNewEmployee = async (req, res, next) => {
+// const saveNewEmployee = async (req, res, next) => {
+//     try {
+//         const employee = req.body;
+
+//         const EmpID = employee.EmpID;
+//         const Email = employee.Email;
+//         const MobileNo = employee.MobileNo; 
+//         const AdharNo = employee.AdharNo;
+//         const PanNo = employee.PanNo;
+
+//         const result = await validateEmployeeDetails(EmpID, Email, MobileNo, AdharNo, PanNo);
+
+//         if (result) {
+//            return res.status(401).json({
+//                 success: false,
+//                 message: result.message,
+//                 data: result.existingEmployee.EmpID
+//             })
+//         }
+//         const employeedetail = await createEmployee(employee);
+//         if (employeedetail) {
+//             res.status(200).json({
+//                 success: true,
+//                 message: " Employee Detail Saved Succesfully ",
+//                 Data: employeedetail
+//             });
+//         } else {
+//             res.status(401).json({
+//                 success: false,
+//                 message: " Something went wrong employee not saved !  ",
+//             })
+//         }
+
+//     } catch (error) {
+//         console.error('Error:', error);
+//         res.status(500).json({ error: 'Internal server error ' });
+//     }
+// }
+
+const saveNewEmployee = async (req, res) => {
     try {
         const employee = req.body;
+        const { EmpID, Email, MobileNo, AdharNo, PanNo } = employee;
 
-        const employeedetail = await createEmployee(employee);
+        const validationResult = await validateEmployeeDetails(EmpID, Email, MobileNo, AdharNo, PanNo);
 
-        if (employeedetail) {
-            res.status(200).json({
+        if (validationResult) {
+            return res.status(409).json({
+                success: false,
+                message: validationResult.message,
+                conflictFields: validationResult.conflictFields,
+                existingEmployee: validationResult.existingEmployee
+            });
+        }
+
+        const newEmployee = await createEmployee(employee);
+
+        if (newEmployee) {
+            return res.status(201).json({
                 success: true,
-                message: " Employee Detail Saved Succesfully ",
-                Data: employeedetail
+                message: "Employee detail saved successfully.",
+                data: newEmployee
             });
         } else {
-            res.status(401).json({
+            return res.status(500).json({
                 success: false,
-                message: " Something went wrong employee not saved !  ",
-            })
+                message: "Something went wrong, employee not saved!"
+            });
         }
+
     } catch (error) {
-        console.error('Error:', error);
-        res.status(500).json({ error: 'Internal server error ' });
+        console.error("Controller Error:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error.",
+            error: error.message
+        });
     }
-}
+};
+
+module.exports = { saveNewEmployee };
+
 const lastEMPid = async (req, res, next) => {
     try {
         const newEMPid = await createNewEMPid();
@@ -176,7 +235,7 @@ const lastEMPid = async (req, res, next) => {
         if (newEMPid) {
             res.status(200).json({
                 success: true,
-                message: " This is Last Employee EMP ID",
+                message: " This ID for RM EMP ID to be use for next RM/CH/Head  ",
                 data: newEMPid
             });
         } else {

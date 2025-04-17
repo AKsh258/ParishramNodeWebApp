@@ -287,7 +287,7 @@ const getLocationsOfProfessionalTax = async ( req, res, next ) =>
         {
             return res.status( 200 ).json( {
                 success: true,
-                message: 'Locations of Professional Tax found successfully',
+                message: 'Professional Tax found successfully location wise',
                 data: result
             } );
         } else

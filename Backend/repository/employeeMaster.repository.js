@@ -88,12 +88,12 @@ const updateEmployee = async ( employee ) =>
     try
     {
         return await employeeMaster.update( employee, { where: { EmpID: empid } } );
-        
+
     } catch ( error )
     {
         console.error( "Update failed:", error );
         throw new Error( ' ! error in Upadting employee : ' + error.message );
-             
+
     }
 };
 
@@ -108,20 +108,34 @@ const createEmployee = async ( employee ) =>
         throw new Error( ' ! error in saving employee : ' + error.message );
     }
 };
-const createNewEMPid = async ( ) =>
+const createNewEMPid = async () =>
 {
     try
     {
-        const result = await employeeMaster.findOne({
-            attributes: ['EmpId'],
+        const latestEmp = await employeeMaster.findOne( {
+            attributes: [ 'EmpId' ],
             where: {
-              EmpId: {
-                [Op.like]: 'EMP%'
-              }
+                EmpId: {
+                    [ Op.like ]: 'EMP%'
+                }
             },
-            order: [['EmpId', 'DESC']]
-          });    
-          return result ? result.dataValues.EmpId : false;
+            order: [ [ 'EmpId', 'DESC' ] ],
+            raw: true
+        } );
+
+        let newEmpId = 'EMP1000'; 
+
+        if ( latestEmp && latestEmp.EmpId )
+        {
+
+            const numberPart = parseInt( latestEmp.EmpId.replace( /\D/g, '' ) ); 
+            const incremented = numberPart + 1;
+            newEmpId = 'EMP' + incremented.toString().padStart( 4, '0' ); 
+
+        }
+    
+        return newEmpId;
+
     } catch ( error )
     {
         console.error( "Error in getiing Last employee EMP ID:", error );
@@ -129,12 +143,13 @@ const createNewEMPid = async ( ) =>
     }
 };
 
-const createNewHLid = async ( ) =>     {
+const createNewHLid = async () =>
+{
     try
     {
         const result = await executeQuery( "SELECT CONCAT(prefix, LastValue) AS NewEmployeeCode FROM sequencemaster WHERE head = 'Employee';" );
 
-        return result ? result[0].NewEmployeeCode : null;
+        return result ? result[ 0 ].NewEmployeeCode : null;
 
     } catch ( error )
     {
@@ -143,14 +158,61 @@ const createNewHLid = async ( ) =>     {
     }
 }
 
+const validateEmployeeDetails = async ( EmpID, Email, MobileNo, AdharNo, PanNo ) =>
+{
+    try
+    {
+        const existing = await employeeMaster.findOne( {
+            where: {
+                [ Op.or ]: [
+                    { EmpID },
+                    //  { Email },
+                    //   { MobileNo },
+                    // { AdharNo },
+                    // { PanNo }
+                ]
+            }
+        } );
+
+        if ( !existing ) return null;
+
+        const data = existing.get(); // safe access
+        const conflicts = [];
+
+        if ( data.EmpID === EmpID ) conflicts.push( "EmpID" );
+        //   if (data.Email?.toLowerCase() === Email?.toLowerCase()) conflicts.push("Email");
+        //  if (data.MobileNo === MobileNo) conflicts.push("MobileNo");
+        //    if (data.AdharNo === AdharNo) conflicts.push("AdharNo");
+        //   if (data.PanNo?.toUpperCase() === PanNo?.toUpperCase()) conflicts.push("PanNo");
+
+        return {
+            message: `Conflict: ${ conflicts.join( ", " ) } already in use.`,
+            conflictFields: conflicts,
+            existingEmployee: {
+                EmpID: data.EmpID,
+                //     Email: data.Email,
+                //   MobileNo: data.MobileNo,
+                //   AdharNo: data.AdharNo,
+                //   PanNo: data.PanNo
+            }
+        };
+
+    } catch ( error )
+    {
+        console.error( "Service Error (validateEmployeeDetails):", error );
+        throw new Error( "Database error during employee validation." );
+    }
+};
+
 module.exports =
 {
     findAll,
     findOne,
     getAllByBranch,
     RMofBranch,
-    updateEmployee, 
-    createEmployee, 
+    updateEmployee,
+    createEmployee,
     createNewEMPid,
     createNewHLid,
+    validateEmployeeDetails
 };
