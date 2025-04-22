@@ -4,4 +4,6 @@ const branches =require("../controllers/branchMaster.controller");
 
 router.post("/getAllBranchesOfCompany", branches.findAllBranches);
 
+router.get("/getShiftDetails/:branchCode", branches.getShiftDetails);
+
 module.exports=router;

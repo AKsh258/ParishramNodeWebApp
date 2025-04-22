@@ -40,6 +40,7 @@ const findOne = async ( empid ) =>
         throw new Error( 'Error in fetching employee by id: ' + error.message );
     }
 };
+
 const getAllByBranch = async ( branchCode ) =>
 {
     try
@@ -103,11 +104,13 @@ const createEmployee = async ( employee ) =>
     try
     {
         return employee = await employeeMaster.create( employee );
+
     } catch ( error )
     {
         throw new Error( ' ! error in saving employee : ' + error.message );
     }
 };
+
 const createNewEMPid = async () =>
 {
     try
@@ -204,6 +207,60 @@ const validateEmployeeDetails = async ( EmpID, Email, MobileNo, AdharNo, PanNo )
     }
 };
 
+const getAllDepartment = async () =>
+{
+    try
+    {
+        return await executeQuery( "SELECT Description FROM DepartmentMaster" );
+
+    } catch ( error )
+    {
+        console.error( "Error in fetching departments:", error );
+        throw new CustomError( 500, "Database error occurred during getting all departments." );
+    }
+};       
+
+const getAllDesignation = async () =>
+{
+    try
+    {
+        return await executeQuery( "SELECT Description FROM DesignationMaster" );
+        
+    }   catch ( error )
+    {
+        console.error( "Error in fetching designations:", error );
+        throw new CustomError( 500, "Database error occurred during getting all designations." );
+    }                                           
+}
+const getAllEduQualificationOptions = async () =>
+{
+    try
+    {
+        return await employeeMaster.findAll({
+            attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('EduQualification')), 'EduQualification']],
+            raw: true
+        });
+    }   catch ( error )
+    {
+        console.error( "Error in fetching designations:", error );
+        throw new CustomError( 500, "Database error occurred during getting all designations." );
+    }                                           
+}           
+const getAllProfQualificationOptions = async () =>
+{
+    try
+    {
+        return await employeeMaster.findAll({
+            attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('ProfQualification')), 'ProfQualification']],
+            raw: true
+        });
+    }   catch ( error )
+    {
+        console.error( "Error in fetching designations:", error );
+        throw new CustomError( 500, "Database error occurred during getting all designations." );
+    }                                           
+}   
+
 module.exports =
 {
     findAll,
@@ -214,5 +271,10 @@ module.exports =
     createEmployee,
     createNewEMPid,
     createNewHLid,
-    validateEmployeeDetails
+    validateEmployeeDetails,
+    getAllDepartment,
+    getAllDesignation,
+    getAllEduQualificationOptions,
+    getAllProfQualificationOptions
+
 };

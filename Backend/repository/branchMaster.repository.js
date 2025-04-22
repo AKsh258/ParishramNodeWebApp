@@ -1,4 +1,5 @@
 const branchMaster=require("../models/branchMaster.model");
+const { executeQuery } = require( '../utils/dbhelper.util.js' );
 
 const findAll = async (companyCode) => {
     try {
@@ -11,4 +12,15 @@ const findAll = async (companyCode) => {
     }
 };
 
-module.exports = { findAll };
+const shiftDetail = async (branchCode) => {
+    try {
+        return await executeQuery(`SELECT ShiftCode, ShiftName, ShiftFrom, ShiftTo, TotalMinutes FROM ShiftMaster WHERE BranchCode = '${branchCode}'`);
+    } catch (error) {
+        throw new Error('Error fetching ShiftDetails : ' + error.message);
+    }
+}
+
+module.exports = { 
+    findAll,
+    shiftDetail,
+ };

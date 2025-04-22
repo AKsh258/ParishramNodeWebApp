@@ -25,4 +25,12 @@ router.get("/lastEMPid", em.lastEMPid);
 
 router.get("/LastHLid", em.lastHLid);
 
+router.get("/departments", em.getDepartment);
+
+router.get("/Designations", em.getDesignation);
+
+router.get("/eduQualificationOptions", em.getEduQualificationOptions);
+
+router.get("/profQualificationOptions", em.getProfQualificationOptions);
+
 module.exports=router;

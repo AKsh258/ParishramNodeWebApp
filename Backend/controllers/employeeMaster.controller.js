@@ -9,6 +9,10 @@ const {
     RMofBranch,
     createNewHLid,
     validateEmployeeDetails,
+    getAllDepartment,
+    getAllDesignation,
+    getAllEduQualificationOptions,
+    getAllProfQualificationOptions
 
 } = require('../repository/employeeMaster.repository');
 const moment = require("moment");
@@ -272,6 +276,95 @@ const lastHLid = async (req, res, next) => {
     }
 
 }
+const getDepartment = async (req, res, next) => {
+    try {
+
+        const department = await getAllDepartment();
+
+        if (department) {
+            res.status(200).json({
+                success: true,
+                message: " All Department found successfully ",
+                data: department
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " department not found ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}   
+
+const getDesignation = async (req, res, next) => {
+    try {
+
+        const designation = await getAllDesignation();
+
+        if (designation) {
+            res.status(200).json({
+                success: true,
+                message: " All Designation found successfully ",
+                data: designation
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " Designation not found ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}  
+
+const getEduQualificationOptions = async (req, res, next) => {
+    try {
+        const eduQualificationOptions = await getAllEduQualificationOptions();
+
+        if (eduQualificationOptions) {
+            res.status(200).json({
+                success: true,
+                message: " All Edu Qualification Options found successfully ",
+                data: eduQualificationOptions
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " Edu Qualification Options not found ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+const getProfQualificationOptions = async (req, res, next) => {
+    try {
+        const profQualificationOptions = await getAllProfQualificationOptions();
+
+        if (profQualificationOptions) {
+            res.status(200).json({
+                success: true,
+                message: " All Prof Qualification Options found successfully ",
+                data: profQualificationOptions
+            });
+        } else {
+            res.status(401).json({
+                success: false,
+                message: " Prof Qualification Options not found ",
+            })
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}               
+
 
 module.exports = 
 { 
@@ -283,4 +376,9 @@ module.exports =
     saveNewEmployee, 
     lastEMPid,
     lastHLid,
+    getDepartment,
+    getDesignation,
+    getEduQualificationOptions,
+    getProfQualificationOptions
+
 };
