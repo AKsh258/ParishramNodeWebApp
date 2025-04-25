@@ -1,33 +1,39 @@
-const express=require("express")
-const { 
+const express = require( "express" )
+const {
     findAll,
+    getBranch,
     shiftDetail,
-} = require("../repository/branchMaster.repository")
+} = require( "../repository/branchMaster.repository" )
 
 
-const findAllBranches = async (req, res, next) => {
-    const companyCode=req.body.CompanyCode;
-    try {
-        const branches = await findAll(companyCode);
-        if(branches.length>0){
-            res.status(200).json({
+const findAllBranches = async ( req, res, next ) =>
+{
+    const companyCode = req.body.CompanyCode;
+    try
+    {
+        const branches = await findAll( companyCode );
+        if ( branches.length > 0 )
+        {
+            res.status( 200 ).json( {
                 success: true,
                 message: "All branches retrieved successfully ",
                 data: branches
-            });
-        }else{
-            res.status(400).json({
-                success: true,
+            } );
+        } else
+        {
+            res.status( 400 ).json( {
+                success: false,
                 message: " There is no company with this company code please select a valid company !"
-            });
-        }  
-    } catch (error) {
-        console.error("Error retrieving branches:", error);
-        res.status(500).json({
+            } );
+        }
+    } catch ( error )
+    {
+        console.error( "Error retrieving branches:", error );
+        res.status( 500 ).json( {
             success: false,
             message: "Failed to retrieve branches",
             error: error.message
-        });
+        } );
     }
 };
 
@@ -78,35 +84,77 @@ const findAllBranches = async (req, res, next) => {
 //     }
 // };
 
-const getShiftDetails = async (req, res) => {
+const getBranchDetail = async ( req, res, next ) =>
+{
+    try
+    {
+
+        const branchCode = req.body.branchCode;
+
+        const result = await getBranch( branchCode );
+
+        if ( result )
+        {
+            res.status( 200 ).json( {
+                success: true, 
+                message: "Branch Detail Found successfully ", 
+                data: result
+            } )
+        }else{
+            res.status(400).json({
+                success: false,
+                message: "This Branch Is No Longer Avilable ! "
+            })
+        }
+
+    } catch ( Error )
+    {
+
+        console.error( "Error In retrieving Branch:", Error );
+        res.status( 500 ).json( {
+            success: false,
+            message: "Failed to retrieve Branch",
+            error: Error.message
+        } );
+
+    }
+}
+
+const getShiftDetails = async ( req, res ) =>
+{
 
     const branchCode = req.params.branchCode;
-    try {
+    try
+    {
         const shiftDetails = await shiftDetail( branchCode );
-            
-            if (shiftDetails.length > 0) {
-            res.status(200).json({
+
+        if ( shiftDetails.length > 0 )
+        {
+            res.status( 200 ).json( {
                 success: true,
                 message: "Shift details retrieved successfully",
                 data: shiftDetails
-            });
-        } else {
-            res.status(404).json({
+            } );
+        } else
+        {
+            res.status( 404 ).json( {
                 success: false,
                 message: "No shift details found for this branch"
-            });
+            } );
         }
-    } catch (error) {
-        console.error("Error retrieving shift details:", error);
-        res.status(500).json({
+    } catch ( error )
+    {
+        console.error( "Error retrieving shift details:", error );
+        res.status( 500 ).json( {
             success: false,
             message: "Failed to retrieve shift details",
             error: error.message
-        });
+        } );
     }
-};  
+};
 
-module.exports={ 
+module.exports = {
     findAllBranches,
+    getBranchDetail,
     getShiftDetails,
 }

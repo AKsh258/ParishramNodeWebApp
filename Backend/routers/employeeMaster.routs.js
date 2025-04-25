@@ -21,6 +21,8 @@ router.post("/Update", em.saveEmployee);
 //rout to register New Employee     http://localhost:4000/employee/register
 router.post("/register", em.saveNewEmployee);
 
+router.post("/newRM", em.saveNewRM);
+
 router.get("/lastEMPid", em.lastEMPid);
 
 router.get("/LastHLid", em.lastHLid);

@@ -2,7 +2,7 @@ const { Op, Sequelize } = require( 'sequelize' );
 const employeeMaster = require( "../models/employeeMaster.model.js" );
 const CustomError = require( "../utils/errorHandler.util.js" );
 const { executeQuery } = require( '../utils/dbhelper.util.js' );
-
+const { sanitizeDataByModel, formatDateOnly, formatDateTime } = require( '../utils/sanitizeDataByModel.util.js' );
 const moment = require( 'moment' );
 
 const findAll = async ( page, pageSize ) =>
@@ -12,6 +12,7 @@ const findAll = async ( page, pageSize ) =>
     try
     {
         const { count, rows } = await employeeMaster.findAndCountAll( {
+
             limit: pageSize,
             offset: offset,
             order: [ [ 'EmpId1', 'ASC' ] ]
@@ -19,10 +20,13 @@ const findAll = async ( page, pageSize ) =>
         } );
         // Count employees who have left
         const leftCount = await employeeMaster.count( {
+
             where: { hasLeft: true }
+
         } );
 
         return { count, rows, leftCount };
+        
     } catch ( error )
     {
         console.error( "Database Error :", error );
@@ -92,6 +96,7 @@ const updateEmployee = async ( employee ) =>
 
     } catch ( error )
     {
+
         console.error( "Update failed:", error );
         throw new Error( ' ! error in Upadting employee : ' + error.message );
 
@@ -100,14 +105,49 @@ const updateEmployee = async ( employee ) =>
 
 const createEmployee = async ( employee ) =>
 {
-    const empid = employee.EmpID;
     try
     {
-        return employee = await employeeMaster.create( employee );
-
-    } catch ( error )
+        return await employeeMaster.create( employee );
+    }
+    catch ( error )
     {
-        throw new Error( ' ! error in saving employee : ' + error.message );
+        console.error( "Error in registar new Employee :", error );
+        throw new CustomError( 500, error );
+    }
+};
+
+const createNewRM = async ( employee ) =>
+{
+    try
+    {
+        return await employeeMaster.create( {
+            EmpID: employee.EmpID,
+            Name: employee.Name,
+            Department: employee.Department,
+            BranchCode: employee.BranchCode,
+            CompanyCode: employee.CompanyCode,
+            PhoneNo: employee.PhoneNo,
+            Email: employee.Email,
+            IsRM: employee.IsRM,
+            IsBranchHead: employee.IsBranchHead,
+            IsHead: employee.IsHead,
+            isTL: employee.isTL,
+            IsBilled: 0,
+            BranchHeadName: employee.BranchHeadName,
+            BranchHeadEmailId: employee.BranchHeadEmailId,
+            HeadName: employee.HeadName,
+            HeadEmailId: employee.HeadEmailId,
+            TL_Emp_Name: employee.TL_Emp_Name,
+            TL_Email: employee.TL_Email,
+            RMEmpName: employee.RMEmpName,
+            RMEmailId: employee.RMEmailId,
+        } );
+
+    }
+    catch ( error )
+    {
+        console.error( "Error in creating new RM:", error );
+        throw new CustomError( 500, "Database error occurred during creating new RM." );
     }
 };
 
@@ -126,17 +166,17 @@ const createNewEMPid = async () =>
             raw: true
         } );
 
-        let newEmpId = 'EMP1000'; 
+        let newEmpId = 'EMP1000';
 
         if ( latestEmp && latestEmp.EmpId )
         {
 
-            const numberPart = parseInt( latestEmp.EmpId.replace( /\D/g, '' ) ); 
+            const numberPart = parseInt( latestEmp.EmpId.replace( /\D/g, '' ) );
             const incremented = numberPart + 1;
-            newEmpId = 'EMP' + incremented.toString().padStart( 4, '0' ); 
+            newEmpId = 'EMP' + incremented.toString().padStart( 4, '0' );
 
         }
-    
+
         return newEmpId;
 
     } catch ( error )
@@ -218,48 +258,48 @@ const getAllDepartment = async () =>
         console.error( "Error in fetching departments:", error );
         throw new CustomError( 500, "Database error occurred during getting all departments." );
     }
-};       
+};
 
 const getAllDesignation = async () =>
 {
     try
     {
         return await executeQuery( "SELECT Description FROM DesignationMaster" );
-        
-    }   catch ( error )
+
+    } catch ( error )
     {
         console.error( "Error in fetching designations:", error );
         throw new CustomError( 500, "Database error occurred during getting all designations." );
-    }                                           
+    }
 }
 const getAllEduQualificationOptions = async () =>
 {
     try
     {
-        return await employeeMaster.findAll({
-            attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('EduQualification')), 'EduQualification']],
+        return await employeeMaster.findAll( {
+            attributes: [ [ Sequelize.fn( 'DISTINCT', Sequelize.col( 'EduQualification' ) ), 'EduQualification' ] ],
             raw: true
-        });
-    }   catch ( error )
+        } );
+    } catch ( error )
     {
         console.error( "Error in fetching designations:", error );
         throw new CustomError( 500, "Database error occurred during getting all designations." );
-    }                                           
-}           
+    }
+}
 const getAllProfQualificationOptions = async () =>
 {
     try
     {
-        return await employeeMaster.findAll({
-            attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('ProfQualification')), 'ProfQualification']],
+        return await employeeMaster.findAll( {
+            attributes: [ [ Sequelize.fn( 'DISTINCT', Sequelize.col( 'ProfQualification' ) ), 'ProfQualification' ] ],
             raw: true
-        });
-    }   catch ( error )
+        } );
+    } catch ( error )
     {
         console.error( "Error in fetching designations:", error );
         throw new CustomError( 500, "Database error occurred during getting all designations." );
-    }                                           
-}   
+    }
+}
 
 module.exports =
 {
@@ -269,6 +309,7 @@ module.exports =
     RMofBranch,
     updateEmployee,
     createEmployee,
+    createNewRM,
     createNewEMPid,
     createNewHLid,
     validateEmployeeDetails,

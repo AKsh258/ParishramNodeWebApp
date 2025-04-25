@@ -6,4 +6,6 @@ router.post("/getAllBranchesOfCompany", branches.findAllBranches);
 
 router.get("/getShiftDetails/:branchCode", branches.getShiftDetails);
 
+router.get("/branchDetails", branches.getBranchDetail);
+
 module.exports=router;

@@ -16,7 +16,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 100 ), 
         allowNull: false 
     },
-    Department: { 
+    Department: {   
         type: DataTypes.STRING( 100 ), 
         allowNull: false 
     },
@@ -77,16 +77,15 @@ const Employee = element.define( "Employee", {
     },
     PanNo: { 
         type: DataTypes.STRING( 25 ),
-        allowNull: false 
     },
     Married: { 
         type: DataTypes.BOOLEAN 
     },
     DoB: { 
-        type: DataTypes.STRING( 50 )
+        type: DataTypes.DATEONLY
     },
     JoiningDt: { 
-        type: DataTypes.STRING( 50 )
+        type: DataTypes.DATEONLY
     },
     EduQualification: { 
         type: DataTypes.STRING( 50 ) 
@@ -104,10 +103,10 @@ const Employee = element.define( "Employee", {
         type: DataTypes.BOOLEAN 
     },
     InActiveDate: { 
-        type: DataTypes.STRING( 50 ) 
+        type: DataTypes.DATEONLY 
     },
     Sex: { 
-        type: DataTypes.STRING( 50 ) 
+        type: DataTypes.STRING( 25 ) 
     },
     CardNo: { 
         type: DataTypes.STRING( 25 ) 
@@ -134,7 +133,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.BOOLEAN 
     },
     LeftDate: { 
-        type: DataTypes.STRING( 50 ) 
+        type: DataTypes.DATEONLY 
     },
     isAdvAcc: { 
         type: DataTypes.BOOLEAN 
@@ -238,7 +237,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 100 )
     },
     Draftjoiningdt: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     HeadId: { 
         type: DataTypes.STRING( 25 )
@@ -259,7 +258,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.BOOLEAN
     },
     ResignationDate: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     AdharNo: { 
         type: DataTypes.STRING( 50 )
@@ -295,10 +294,10 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 200 )
     },
     FirstCompanyFromDate: { 
-        type: DataTypes.STRING(50) 
+        type: DataTypes.DATEONLY
     },
     FirstCompanyTodate: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     FirstCompanyDesignation: { 
         type: DataTypes.STRING( 100 )
@@ -307,22 +306,22 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 200 )
     },
     SecondCompanyFromDate: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     SecondCompanyTodate: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     SecondCompanyDesignation: { 
         type: DataTypes.STRING( 100 )
     },
     FatherDOB: { 
-        type: DataTypes.STRING(50) 
+        type: DataTypes.DATEONLY 
     },
     FatherAadharno: { 
         type: DataTypes.STRING( 50 )
     },
     MotherDOB: { 
-        type: DataTypes.STRING( 50 )
+        type: DataTypes.DATEONLY
     },
     MotherAadharno: {
         type: DataTypes.STRING( 50 )
@@ -346,7 +345,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 200 )
         },
     SpouseDOb: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     SpouseAadharno: { 
         type: DataTypes.STRING( 50 )
@@ -355,7 +354,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 200 )
     },
     Child1DOB: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     Child1Gender: { 
         type: DataTypes.STRING( 50 )
@@ -367,7 +366,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 200 )
     },
     Child2DOB: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     Child2Aadharno: { 
         type: DataTypes.STRING( 50 )
@@ -388,7 +387,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 200 )
     },
     Child3DOB: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     Child3Gender: { 
         type: DataTypes.STRING( 50 )
@@ -400,7 +399,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 200 )
     },
     Child4DOB: { 
-        type: DataTypes.STRING(50)
+        type: DataTypes.DATEONLY
     },
     Child4Gender: { 
         type: DataTypes.STRING( 50 )
@@ -439,7 +438,7 @@ const Employee = element.define( "Employee", {
         type: DataTypes.STRING( 50 )
     },
     T_EndDate: { 
-        type: DataTypes.STRING
+        type: DataTypes.DATEONLY
     },
     CTC: { 
         type: DataTypes.INTEGER
