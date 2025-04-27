@@ -25,6 +25,7 @@ const salHead =require("./routers/salaryHeadMaster.routs");         // Salary re
 const email = require("./routers/email.routs");                 // email routes
 const GradeMaster = require("./routers/gradeMaster.routs");         // grade master routes
 const countryMaster = require("./routers/countrymaster.routs");     // country master routes
+const select = require("./routers/dropdowns.routs")                 //dropdawn options routes
 
 app.use("/contact", cotectUsRout);
 app.use("/element", elementRout);
@@ -35,7 +36,7 @@ app.use("/salary", salHead);
 app.use("/email", email);
 app.use("/grade", GradeMaster);
 app.use("/country", countryMaster); 
-
+app.use("/select", select);
 
 
 app.use(errorMiddleware);

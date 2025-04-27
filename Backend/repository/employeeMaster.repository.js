@@ -2,7 +2,6 @@ const { Op, Sequelize } = require( 'sequelize' );
 const employeeMaster = require( "../models/employeeMaster.model.js" );
 const CustomError = require( "../utils/errorHandler.util.js" );
 const { executeQuery } = require( '../utils/dbhelper.util.js' );
-const { sanitizeDataByModel, formatDateOnly, formatDateTime } = require( '../utils/sanitizeDataByModel.util.js' );
 const moment = require( 'moment' );
 
 const findAll = async ( page, pageSize ) =>

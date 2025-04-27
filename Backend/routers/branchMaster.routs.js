@@ -1,11 +1,13 @@
-const express=require('express');
-const router=express.Router();
-const branches =require("../controllers/branchMaster.controller");
+const express = require( 'express' );
+const router = express.Router();
+const branches = require( "../controllers/branchMaster.controller" );
 
-router.post("/getAllBranchesOfCompany", branches.findAllBranches);
+router.post( "/getAllBranchesOfCompany", branches.findAllBranches );
 
-router.get("/getShiftDetails/:branchCode", branches.getShiftDetails);
+router.get( "/getShiftDetails/:branchCode", branches.getShiftDetails );
 
-router.get("/branchDetails", branches.getBranchDetail);
+router.get( "/branchDetails", branches.getBranchDetail );
 
-module.exports=router;
+router.get( "/headCommHead", branches.getCommercialHead );
+
+module.exports = router;

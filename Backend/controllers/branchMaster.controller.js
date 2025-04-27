@@ -3,6 +3,7 @@ const {
     findAll,
     getBranch,
     shiftDetail,
+    getHeadCH,
 } = require( "../repository/branchMaster.repository" )
 
 
@@ -96,15 +97,16 @@ const getBranchDetail = async ( req, res, next ) =>
         if ( result )
         {
             res.status( 200 ).json( {
-                success: true, 
-                message: "Branch Detail Found successfully ", 
+                success: true,
+                message: "Branch Detail Found successfully ",
                 data: result
             } )
-        }else{
-            res.status(400).json({
+        } else
+        {
+            res.status( 400 ).json( {
                 success: false,
                 message: "This Branch Is No Longer Avilable ! "
-            })
+            } )
         }
 
     } catch ( Error )
@@ -153,8 +155,43 @@ const getShiftDetails = async ( req, res ) =>
     }
 };
 
+const getCommercialHead = async ( req, res, next ) =>
+{
+    try
+    {
+        const branchCode = req.body.branchCode;
+
+        const result = await getHeadCH( branchCode );
+
+    
+
+        if ( result )
+        {
+            res.status( 200 ).json( {
+                success: true,
+                message: "Head CH found succesfully",
+                data: result
+            } )
+        } else
+        {
+            res.status( 400 ).json( {
+                success: false,
+                message: "Head CH not Found AT this branch tray later !"
+            } )
+        }
+    } catch ( error )
+    {
+        res.status( 500 ).json( {
+            success: false,
+            message: "Failed to Get CH AND Head BY Branch ",
+            error: error.message
+        } );
+    }
+}
+
 module.exports = {
     findAllBranches,
     getBranchDetail,
     getShiftDetails,
+    getCommercialHead,
 }

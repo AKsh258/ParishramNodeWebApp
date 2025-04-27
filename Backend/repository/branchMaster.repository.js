@@ -14,16 +14,19 @@ const findAll = async ( companyCode ) =>
         throw new Error( 'Error fetching companies : ' + error.message );
     }
 };
-const getBranch = async( branchCode )=>{
-    try{
-        
-        return await branchMaster.findOne( { 
+const getBranch = async ( branchCode ) =>
+{
+    try
+    {
+
+        return await branchMaster.findOne( {
             attributes: [ 'Name', 'Code', 'CompanyCode', 'incharge', 'Address', 'City', 'pincode', 'faxno', 'phoneno', 'email', 'Website', 'createdBy', 'Prefix' ],
             where: { Code: branchCode }
-        });
+        } );
 
-    }catch(Error){
-        throw new Error('Error in fond this branch details technical error ! go in contect us tab and suggest we so we improve the functionality THANK YOU !', Error.message )
+    } catch ( Error )
+    {
+        throw new Error( 'Error in fond this branch details technical error ! go in contect us tab and suggest we so we improve the functionality THANK YOU !', Error.message )
     }
 };
 
@@ -38,8 +41,22 @@ const shiftDetail = async ( branchCode ) =>
     }
 }
 
+const getHeadCH = async ( branchCode ) =>
+{
+    try
+    {
+
+        return await executeQuery( `select BranchName, BranchHeadId, BranchHeadName, BranchHeadEmail, ComHeadId, ComHeadName, ComHeademail from BranchCommercialHeadList  where BranchCode = '${ branchCode }'` )
+
+    } catch ( error )
+    {
+        throw new error( "Error in founding Head and Commercial Head " + error.message );
+    }
+}
+
 module.exports = {
     findAll,
     getBranch,
     shiftDetail,
+    getHeadCH,
 };
